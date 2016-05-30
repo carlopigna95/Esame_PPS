@@ -23,6 +23,7 @@ public class Main {
 		//GuiMagazziniere app = new GuiMagazziniere();
 		
 		
+		
 	}
 }
 	     

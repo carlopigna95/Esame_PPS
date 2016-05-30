@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,17 +16,26 @@ import model.Carrello;
 import model.Ordine;
 import model.Prodotto;
 import view.GuiCarrello;
+import view.GuiMagazziniere;
+import view.RichiestePendenti;
 
 
 public class JTableListener implements ActionListener {
      JTable table;
-    DefaultTableModel dtm;
+     DefaultTableModel dtm;
+     GuiMagazziniere magFinestra;
     
    
 	public JTableListener(JTable table) {
 		super();
 		this.table = table;
 		table.getModel();
+	}
+	public JTableListener(DefaultTableModel dtm,JTable table, GuiMagazziniere magFinestra) {
+		super();
+		this.table = table;
+		dtm = (DefaultTableModel) table.getModel();
+		this.magFinestra = magFinestra;
 	}
 	
 	public JTableListener(DefaultTableModel dtm,JTable table) {
@@ -75,8 +85,23 @@ public class JTableListener implements ActionListener {
 		  Ordine.getInstance().confermaOrdine();
 		  OrdineDAO.getInstance().inserisciOrdine();
 		  DipendenteDAO.getInstance().aggiornaSpesa();
-	
-	
-	 }
+		}
+
+	 else if(arg0.getActionCommand().equals("OrdiniPendenti")){
+		 int row = table.getSelectedRow();
+		 if(table.getSelectedRow() != -1){
+			 int codOrdine = Integer.parseInt((String)table.getValueAt(row, 2));
+			Ordine.getInstance().sessionOrdine.put("Ordine_corrente", codOrdine); //Viene creato un Hashmap che registra il codice dell'ordine
+
+			 magFinestra.setVisible(false);
+			 RichiestePendenti win = new RichiestePendenti(codOrdine);
+			 
+		 }
+		 else {
+			 JOptionPane.showMessageDialog(table, "Selezionare una riga");
+		 }
+		 
 	 }
 	}
+}
+	

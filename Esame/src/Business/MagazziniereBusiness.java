@@ -16,33 +16,41 @@ public class MagazziniereBusiness {
 			instance = new MagazziniereBusiness();
 		return instance;
 	}
-	 public boolean ControlloMagazziniere() {
+
+	public int CodMagazzino() {
 		 
 		 Magazziniere m = new Magazziniere();
-		 return m.ControlloMag();
+		 return m.CodMagazzino();
 		 
-	  }
+	}
 
-	  public void AggiungiProdotti(int quantita, int codice_prodotto) {
+	public void AggiungiProdotti(int quantita, int codice_prodotto) {
 		  
 		Magazziniere m = new Magazziniere(quantita, codice_prodotto);
 		m.AggiuntaProdotto();
 		
-	  }
+	}
 	  
-	  public void VisualizzaRichieste() {
-		  
-		  
-	  }
+	 
 	  
-	  public Vector<String[]> PocaDisponibilita1(){
+	  public Vector<String[]> PocaDisponibilita(){
 		  Magazziniere m = new Magazziniere();
-		  return m.PocaDisponibilita1();
+		  return m.PocaDisponibilita();
+	  }
+
+	  public Vector<String[]> TableRichiestePendenti() {
+		  
+		  Magazziniere m = new Magazziniere();
+		  return m.TableRichiestePendenti();		  
 	  }
 	  
-	  public Vector<String[]> PocaDisponibilita2(){
+	  public Vector<String[]> RichiestePendenti(int codOrdine){
 		  Magazziniere m = new Magazziniere();
-		  return m.PocaDisponibilita2();
+		  return m.RichiestePendenti(codOrdine);
+	  }
+	  public void EvadiOrdine(){
+		  Magazziniere m = new Magazziniere();
+		  m.EvadiOrdine();
 	  }
 
 }

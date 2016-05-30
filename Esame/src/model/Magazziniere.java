@@ -32,13 +32,10 @@ public class Magazziniere extends UtenteRegistrato {
 		Codice_Magazzino = codice_Magazzino;
 	}
 	
-	public boolean ControlloMag(){
+	public int CodMagazzino(){
 		MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
-		 UtenteRegistrato utente = (UtenteRegistrato) Sessione.getInstance().session.get("utente_corrente");
-		 String username = utente.getUsername();
-		 //Verifica se il magazziniere che ha effettuato il login è quello del magazzino 1
-		 boolean magazziniere_attuale = username.equals(magazziniere.Username().get(0)[0]); 
-		 return magazziniere_attuale;
+		int codMagazzino = Integer.parseInt(magazziniere.codMagazzino().get(0)[0]); 
+		return codMagazzino;
 		
 	}
 	
@@ -49,18 +46,29 @@ public class Magazziniere extends UtenteRegistrato {
 		
 	}
 	
-	public Vector<String[]> PocaDisponibilita1() {
+	public Vector<String[]> PocaDisponibilita() {
 		
 		MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
-		return magazziniere.PocaDisponibilita1();
+		return magazziniere.PocaDisponibilita();
 		
 	}
 	
-public Vector<String[]> PocaDisponibilita2() {
-		
+//metodo per la table nella tab "Richieste Pendenti" di GUIMagazziniere
+	public Vector<String[]> TableRichiestePendenti(){
+	
+	MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
+	return magazziniere.TableRichiestePendenti();
+}
+	
+//table per la finestra a parte delle dettaglio ordine pendente
+	public Vector<String[]> RichiestePendenti(int codOrdine){
+	MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
+	return magazziniere.RichiestePendenti(codOrdine);
+	}
+	
+	public void EvadiOrdine(){
 		MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
-		return magazziniere.PocaDisponibilita2();
-		
+		magazziniere.EvadiOrdine();
 	}
 
-	}
+}

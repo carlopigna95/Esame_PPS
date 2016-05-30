@@ -46,13 +46,15 @@ public class GuiMagazziniere extends JFrame {
 	 
 	
 	MagazziniereBusiness magazz_business = MagazziniereBusiness.getInstance();
-
-
-	  
 	private static final long serialVersionUID = 1L;
+	DefaultTableModel dtm = new DefaultTableModel();
 	Ascoltatore listener = new Ascoltatore(this);
 	MyTableListener TableListener = new MyTableListener(this);
+	JTableListener listenerDettagli = new JTableListener(dtm,creatore_TableRichiestePendenti(),this);
+	
+	
 	AscoltatoreMagazziniere listener_magazz = new AscoltatoreMagazziniere(this);
+	
 	public GuiMagazziniere(){
 		  super("Magazziniere");
 		  Container c = getContentPane();
@@ -65,11 +67,9 @@ public class GuiMagazziniere extends JFrame {
 		  JPanel sud2 = new JPanel();
 		  JButton logout1 = new JButton("Log-out");
 		  JButton esci1 = new JButton("Esci");
+		  JButton dettagli = new JButton("Dettagli Ordine");
 		  JButton logout2 = new JButton("Log-out");
 		  JButton esci2 = new JButton("Esci");
-		  
-		  
-		  
 		  
 		  
 		  //---------PRIMO TAB--------------------------
@@ -78,7 +78,12 @@ public class GuiMagazziniere extends JFrame {
 		  primo.setLayout(new BorderLayout());
 		  primo.add(nord1,BorderLayout.NORTH);
 		  primo.add(sud1,BorderLayout.SOUTH);
-		  sud1.setLayout(new GridLayout(1,2,5,5));
+		  JScrollPane ScrollPaneRichieste = new JScrollPane(creatore_TableRichiestePendenti());
+		  nord1.add(ScrollPaneRichieste);
+		  sud1.setLayout(new GridLayout(1,3,5,5));
+		  sud1.add(dettagli); 
+		  dettagli.addActionListener(listenerDettagli);
+		  dettagli.setActionCommand("OrdiniPendenti");
 		  sud1.add(logout1);
 		  logout1.addActionListener(listener);
 		  logout1.setActionCommand("logout");
@@ -91,14 +96,8 @@ public class GuiMagazziniere extends JFrame {
 		  secondo.setLayout(new BorderLayout());
 		  secondo.add(nord2,BorderLayout.NORTH);
 		  secondo.add(sud2,BorderLayout.SOUTH);
-		  
-		  if (magazz_business.ControlloMagazziniere() == true){
-			  nord2.add(creatore_JTable1());  //se è il magazziniere del primo magazzino stampa i prodotti con poca disp 
-			  								  //del magazzino 1
-		  }
-		  else{
-			  nord2.add(creatore_JTable2());
-		  }
+		  nord2.add(creatore_JTable()); 
+		 
 		  sud2.add(logout2);
 		  sud2.setLayout(new GridLayout(1,2,5,5));
 		  logout2.addActionListener(listener);
@@ -120,8 +119,8 @@ public class GuiMagazziniere extends JFrame {
 	//----------METODI PER LA GENERAZIONE DELLE JTABLE-------------
 	
 		
-	//-----------JTable magazzino 1
-		public JScrollPane creatore_JTable1(){
+	//-----------JTable prodotti con poca disponibilità-------------
+		public JScrollPane creatore_JTable(){
 			
 			MyTableModel mtm = new MyTableModel();
 			final JTable table = new JTable() {
@@ -134,11 +133,10 @@ public class GuiMagazziniere extends JFrame {
 													,"Prezzo","Produttore"};
 			mtm.setColumnIdentifiers(columnNames);
 		  	table.setModel(mtm);
-			JTableListener lis = new JTableListener(table);
 			//I dati vengono presi dal Database: è necessario aggiungere la colonna "Seleziona" a parte 
-			Boolean[] checkbox = new Boolean[magazz_business.PocaDisponibilita1().size()];
-		  	for(int i=0;i<magazz_business.PocaDisponibilita1().size();i++){ //Allocazione dinamica della JTable
-		  	    mtm.addRow(magazz_business.PocaDisponibilita1().get(i));
+			Boolean[] checkbox = new Boolean[magazz_business.PocaDisponibilita().size()];
+		  	for(int i=0;i<magazz_business.PocaDisponibilita().size();i++){ //Allocazione dinamica della JTable
+		  	    mtm.addRow(magazz_business.PocaDisponibilita().get(i));
 		  	   checkbox[i] = false;				
 		  	}
 		  	mtm.addColumn("Seleziona",checkbox);
@@ -149,39 +147,36 @@ public class GuiMagazziniere extends JFrame {
 		    
 		}
 		
-		//---------JTable magazzino 2---------------
 		
-		public JScrollPane creatore_JTable2(){
-			MyTableModel mtm = new MyTableModel();
-			final JTable table = new JTable(){
-				public Dimension getPreferredScrollableViewportSize(){
-			  		return new Dimension(600,400);
-			  	}
-			};
-			table.setRowSelectionAllowed(true);
-			String columnNames[] = new String[] { "Nome", "Categoria", "Descrizione","Disponibilità"
-													,"Prezzo","Produttore"};
-			mtm.setColumnIdentifiers(columnNames);
-		  	table.setModel(mtm);
-			JTableListener lis = new JTableListener(table);
-			//I dati vengono presi dal Database: è necessario aggiungere la colonna "Seleziona" a parte 
-			Boolean[] checkbox = new Boolean[magazz_business.PocaDisponibilita2().size()];
-		  	for(int i=0;i<magazz_business.PocaDisponibilita2().size();i++){ //Allocazione dinamica della JTable
-		  	    mtm.addRow(magazz_business.PocaDisponibilita2().get(i));
-		  	    checkbox[i] = false;				
+		//-----------TABLE RICHIESTE PENDENTI------------
+		public JTable creatore_TableRichiestePendenti(){
+		MyTableModel mtm = new MyTableModel();
+		final JTable table = new JTable(){
+			public Dimension getPreferredScrollableViewportSize(){
+		  		return new Dimension(600,400);
 		  	}
-		  	mtm.addColumn("Seleziona",checkbox);
-		  	mtm.addTableModelListener(TableListener);
-		  
-		  
-		  	JScrollPane scrollPane = new JScrollPane(table);
-		  	
-		  	return scrollPane;
-		  	
-		    
+		};
+		table.setRowSelectionAllowed(true);
+		String columnNames[] = new String[] { "Nome Dipendente", "Cognome Dipendente","Codice Ordine"};
+		mtm.setColumnIdentifiers(columnNames);
+		table.setModel(mtm);
+		JTableListener lis = new JTableListener(table);
+		for(int i=0;i<magazz_business.TableRichiestePendenti().size();i++){
+			mtm.addRow(magazz_business.TableRichiestePendenti().get(i));
 		}
-	    
+		
+
+		
+	  	
+	  	return table;
 	     
 	}
+		
+			
+		
+		
+		
+		
+}
 
 

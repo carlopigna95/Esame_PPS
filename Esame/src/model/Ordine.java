@@ -15,15 +15,17 @@ import dao.OrdineDAO;
 public class Ordine {
 
 	  //VARIBILI
-      Object codice_ordine = null;
+      private  int codice_ordine;
       float spesa_totale1 = 0;
       float spesa_totale2 = 0;
 	  UtenteRegistrato u = (UtenteRegistrato) Sessione.getInstance().session.get("utente_corrente");
 	  int codice_dipendente = u.getIdUtenteRegistrato();
 	  boolean stato_ordine;
+	  private int codOrdine;
 
 	  public HashMap< String,Vector<Object[]>> ordine_magazzino = new HashMap<String,Vector<Object[]>>();
 	  public HashMap< String,Float> spesaTotaleDipendente = new HashMap<String,Float>();
+	  public HashMap<String, Object> sessionOrdine = new HashMap<String, Object>();
 	  
 	
 	  //ISTANZA
@@ -63,7 +65,7 @@ public class Ordine {
 		Object [] ordine1 = new Object[5];
         Object [] ordine2 = new String[5];
 		
-			   while(iterator.hasNext()){	   
+			   while(iterator.hasNext()){		   
 			Prodotto key = iterator.next();
 			int codice_prodotto = key.codiceProdotto();
 			int codice_magazzino = OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
@@ -86,7 +88,7 @@ public class Ordine {
 		    break;
 		    case 2 : 
    	                 codice_ordine = 0;
-	                // ordine2[0] = Integer.toString(codice_ordine);
+	                 ordine2[0] = Integer.toString(codice_ordine);
 	                 spesa_totale2 = prezzo + spesa_totale2;
 	                 ordine2[1] = Float.toString(spesa_totale2);
 	                 ordine2[2] = nome_progetto; 
@@ -106,7 +108,28 @@ public class Ordine {
 			   //lista_ordine2.add(ordine2);
 			   ordine_magazzino.put("magazzino1",lista_ordine1);  
 			   //ordine_magazzino.put("magazzino2",lista_ordine2);
+	    }
     }
-    }
+    
+    public void setStato_Ordine(boolean stato_ordine) {
+		this.stato_ordine = stato_ordine;
+	}
+
+	public int getCodOrdine() {
+		return codOrdine;
+	}
+
+	public void setCodOrdine(int codOrdine) {
+		this.codOrdine = codOrdine;
+	}
+    
    
-    }
+    
+}
+			   
+			   
+			   
+	   
+    
+
+   
