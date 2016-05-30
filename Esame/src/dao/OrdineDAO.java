@@ -40,12 +40,12 @@ public void inserisciOrdine(){
 	Vector<Object[]> ordine_mag1 = Ordine.getInstance().ordine_magazzino.get("magazzino1");
 	//Vector<String[]> ordine_mag2 = Ordine.getInstance().ordine_magazzino.get("magazzino2");
 	int status = 0;
-	int codice_ordine = (int) ordine_mag1.get(0)[0];
+	Object codice_ordine = (int) ordine_mag1.get(0)[0];
 	float totale_spesa =  (float) ordine_mag1.get(0)[1];
 	String nome_progetto = (String) ordine_mag1.get(0)[2];
 	int codice_dipendente = (int) ordine_mag1.get(0)[3];
 	int codice_magazzino = (int) ordine_mag1.get(0)[4];
-	System.out.println("Ordine"+codice_ordine+"Dipen:"+codice_dipendente);
+	System.out.println("Ordine"+codice_ordine+"\tTotale:"+totale_spesa+"\tNome:"+nome_progetto+"\tDipen:"+codice_dipendente);
     DbConnection con = new DbConnection();
     String query = "insert into ordine (CodiceOrdine,TotaleSpesa,NomeProgetto,CodiceDipendente,StatoOrdine) "
     		+ "values (CodiceOrdine="+codice_ordine+",TotaleSpesa="+totale_spesa+

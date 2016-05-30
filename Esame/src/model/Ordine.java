@@ -15,7 +15,7 @@ import dao.OrdineDAO;
 public class Ordine {
 
 	  //VARIBILI
-      private  int codice_ordine;
+      Object codice_ordine = null;
       float spesa_totale1 = 0;
       float spesa_totale2 = 0;
 	  UtenteRegistrato u = (UtenteRegistrato) Sessione.getInstance().session.get("utente_corrente");
@@ -63,7 +63,7 @@ public class Ordine {
 		Object [] ordine1 = new Object[5];
         Object [] ordine2 = new String[5];
 		
-			   while(iterator.hasNext()){		   
+			   while(iterator.hasNext()){	   
 			Prodotto key = iterator.next();
 			int codice_prodotto = key.codiceProdotto();
 			int codice_magazzino = OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
@@ -86,7 +86,7 @@ public class Ordine {
 		    break;
 		    case 2 : 
    	                 codice_ordine = 0;
-	                 ordine2[0] = Integer.toString(codice_ordine);
+	                // ordine2[0] = Integer.toString(codice_ordine);
 	                 spesa_totale2 = prezzo + spesa_totale2;
 	                 ordine2[1] = Float.toString(spesa_totale2);
 	                 ordine2[2] = nome_progetto; 
