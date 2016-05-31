@@ -40,6 +40,8 @@ public class GuiLogin extends JFrame {
 			f.setLayout(new BorderLayout());
             f.setBackground(BlueFacebook);
             JLabel user = new JLabel("                     Username");
+            username.setBorder(new LineBorder(Color.BLACK));
+            password.setBorder(new LineBorder(Color.BLACK));
             user.setForeground(Color.white);
             f.add(nord, BorderLayout.NORTH);
     		nord.setBorder(BorderFactory.createEmptyBorder(20,10,10,10));
