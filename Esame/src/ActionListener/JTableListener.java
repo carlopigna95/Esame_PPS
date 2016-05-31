@@ -21,7 +21,7 @@ import view.RichiestePendenti;
 
 
 public class JTableListener implements ActionListener {
-     JTable table;
+     static JTable table;
      DefaultTableModel dtm;
      GuiMagazziniere magFinestra;
     
@@ -91,15 +91,17 @@ public class JTableListener implements ActionListener {
 		 int row = table.getSelectedRow();
 		 if(table.getSelectedRow() != -1){
 			 int codOrdine = Integer.parseInt((String)table.getValueAt(row, 2));
-			Ordine.getInstance().sessionOrdine.put("Ordine_corrente", codOrdine); //Viene creato un Hashmap che registra il codice dell'ordine
+			 //Viene creato un Hashmap che registra il codice dell'ordine
+			 Ordine.getInstance().sessionOrdine.put("Ordine_corrente", codOrdine);
 
 			 magFinestra.setVisible(false);
 			 RichiestePendenti win = new RichiestePendenti(codOrdine);
 			 
 		 }
 		 else {
-			 JOptionPane.showMessageDialog(table, "Selezionare una riga");
+			 //JOptionPane.showMessageDialog(table, "Selezionare una riga");
 		 }
+		 System.out.println(row);
 		 
 	 }
 	}

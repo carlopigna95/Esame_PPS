@@ -161,25 +161,26 @@ public class GuiMagazziniere extends JFrame {
 		
 		//-----------TABLE RICHIESTE PENDENTI------------
 		public JTable creatore_TableRichiestePendenti(){
-		MyTableModel mtm = new MyTableModel();
-		final JTable table = new JTable(){
-			private static final long serialVersionUID = 1L;
-
-			public Dimension getPreferredScrollableViewportSize(){
-		  		return new Dimension(600,400);
-		  	}
-		};
-		table.setRowSelectionAllowed(true);
-		String columnNames[] = new String[] { "Nome Dipendente", "Cognome Dipendente","Codice Ordine"};
-		mtm.setColumnIdentifiers(columnNames);
-		table.setModel(mtm);
-		for(int i=0;i<magazz_business.TableRichiestePendenti().size();i++){
-			mtm.addRow(magazz_business.TableRichiestePendenti().get(i));
-		}
-	  	table.setOpaque(true);
-	  	return table;
+			MyTableModel mtm = new MyTableModel();
+			final JTable table = new JTable(){
+				private static final long serialVersionUID = 1L;
+				public Dimension getPreferredScrollableViewportSize(){
+					return new Dimension(600,400);
+				}
+			};
+			table.setRowSelectionAllowed(true);
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			String columnNames[] = new String[] { "Nome Dipendente", "Cognome Dipendente","Codice Ordine"};
+			mtm.setColumnIdentifiers(columnNames);
+			table.setModel(mtm);
+			JTableListener lis = new JTableListener(table);
+			for(int i=0;i<magazz_business.TableRichiestePendenti().size();i++){
+				mtm.addRow(magazz_business.TableRichiestePendenti().get(i));
+			}
+			table.setOpaque(true);
+			return table;
 	     
-	}
+		}
 		
 }
 
