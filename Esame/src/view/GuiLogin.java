@@ -67,6 +67,8 @@ public class GuiLogin extends JFrame {
         	accedi.setForeground(Color.white);
 			accedi.setBackground(BlueFacebook);
 			accedi.setBorder(new LineBorder(BlueFacebook));
+			username.setBorder(new LineBorder(BlueFacebook));
+			password.setBorder(new LineBorder(BlueFacebook));
 			accedi.addActionListener(new AscoltatoreLogin(this));
 			sud.add(accedi); 
 			

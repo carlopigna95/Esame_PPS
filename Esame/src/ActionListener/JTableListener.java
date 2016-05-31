@@ -85,6 +85,10 @@ public class JTableListener implements ActionListener {
 		  Ordine.getInstance().confermaOrdine();
 		  OrdineDAO.getInstance().inserisciOrdine();
 		  DipendenteDAO.getInstance().aggiornaSpesa();
+		  Carrello.getInstance().sessionCar.clear();
+		  Ordine.getInstance().ordine_magazzino.clear();
+		  
+		  
 		}
 
 	 else if(arg0.getActionCommand().equals("OrdiniPendenti")){

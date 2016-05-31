@@ -155,38 +155,45 @@ public class Carrello {
    }
    public void rimuoviProdotto(JTable table,DefaultTableModel dtm){
 	   //GRAFICA
-	   int row = table.getSelectedRow();
-	   dtm = (DefaultTableModel) table.getModel();
-	   String[] cella =  new String[table.getColumnCount()-1];
-	   for (int col=0;col<table.getColumnCount()-1;col++){
-			 cella [col] = (String) table.getValueAt(row, col);
-		 } 
-	   Prodotto p = new Prodotto();
-	     p.setNome_Prodotto((String) cella [0]);
-		 p.setCategoria((String) cella [1]);
-		 p.setDescrizione((String) cella [2]);
-		 p.setDisponibilita_Magazzino((Integer.parseInt((String) cella [3])));
-		 p.setPrezzo(Float.parseFloat(((String) cella [4])));
-		 p.setProduttore((String) cella [5]);
-	   
-	   
-       int hashcode_cella = p.hashCode(); //hashcode corrispondente alla riga selezionata String[]
-       
-       
-       Set<Prodotto> keySet = sessionCar.keySet();
-	   Iterator<Prodotto> iterator = keySet.iterator();
-	   while(iterator.hasNext()){
+	   try{
 		   
-		   Prodotto key = iterator.next(); 
-		   int hashcode_elemento = key.hashCode();
-		   if (hashcode_elemento == hashcode_cella){
-			   sessionCar.remove(key);
+		   int row = table.getSelectedRow();
+		   dtm = (DefaultTableModel) table.getModel();
+		   String[] cella =  new String[table.getColumnCount()-1];
+		   for (int col=0;col<table.getColumnCount()-1;col++){
+				 cella [col] = (String) table.getValueAt(row, col);
+			 } 
+		   Prodotto p = new Prodotto();
+		     p.setNome_Prodotto((String) cella [0]);
+			 p.setCategoria((String) cella [1]);
+			 p.setDescrizione((String) cella [2]);
+			 p.setDisponibilita_Magazzino((Integer.parseInt((String) cella [3])));
+			 p.setPrezzo(Float.parseFloat(((String) cella [4])));
+			 p.setProduttore((String) cella [5]);
+		   
+		   
+	       int hashcode_cella = p.hashCode(); //hashcode corrispondente alla riga selezionata String[]
+	       
+	       
+	       Set<Prodotto> keySet = sessionCar.keySet();
+		   Iterator<Prodotto> iterator = keySet.iterator();
+		   while(iterator.hasNext()){
+			   
+			   Prodotto key = iterator.next(); 
+			   int hashcode_elemento = key.hashCode();
+			   if (hashcode_elemento == hashcode_cella){
+				   sessionCar.remove(key);
+			   }
 		   }
+		   
+		   
+		   dtm.removeRow(row);
+	      
 	   }
+	   catch(ArrayIndexOutOfBoundsException e){
+	    	JOptionPane.showMessageDialog(null, "Selezionare un prodotto");
+	    }
 	   
-	   
-	   dtm.removeRow(row);
-      
    }
   public void modificaQuantita(JTable table,DefaultTableModel dtm){
 	  try{ 

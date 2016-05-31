@@ -78,15 +78,6 @@ public boolean login(){
 	 return UtenteRegistratoDAO.getInstance().utenteEsiste(this);
           }
 
-/*public char Controllo_Ruolo(){
-	
-	return UtenteRegistratoDAO.getInstance().Controllo_Ruolo(this);
-	
-}
-public int get_IdUtente(String username){
-	 return UtenteRegistratoDAO.getInstance().get_IdUtente(username);
-	 
-	}*/
 public int getIdUtenteRegistrato() {
 	return idUtenteRegistrato;
 }
