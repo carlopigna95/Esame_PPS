@@ -37,6 +37,7 @@ import javax.swing.table.TableColumn;
 import ActionListener.Ascoltatore;
 import ActionListener.AscoltatoreMagazziniere;
 import ActionListener.JTableListener;
+import ActionListener.JTableListenerMagazziniere;
 import ActionListener.MyTableListener;
 import Business.MagazziniereBusiness;
 import dao.MagazziniereDAO;
@@ -50,7 +51,7 @@ public class GuiMagazziniere extends JFrame {
 	DefaultTableModel dtm = new DefaultTableModel();
 	Ascoltatore listener = new Ascoltatore(this);
 	MyTableListener TableListener = new MyTableListener(this);
-	JTableListener listenerDettagli = new JTableListener(dtm,creatore_TableRichiestePendenti(),this);
+	JTableListenerMagazziniere listenerDettagli = new JTableListenerMagazziniere(dtm,creatore_TableRichiestePendenti(),this);
 	
 	
 	AscoltatoreMagazziniere listener_magazz = new AscoltatoreMagazziniere(this);
@@ -173,7 +174,7 @@ public class GuiMagazziniere extends JFrame {
 			String columnNames[] = new String[] { "Nome Dipendente", "Cognome Dipendente","Codice Ordine"};
 			mtm.setColumnIdentifiers(columnNames);
 			table.setModel(mtm);
-			JTableListener lis = new JTableListener(table);
+			JTableListenerMagazziniere lis = new JTableListenerMagazziniere(table);
 			for(int i=0;i<magazz_business.TableRichiestePendenti().size();i++){
 				mtm.addRow(magazz_business.TableRichiestePendenti().get(i));
 			}

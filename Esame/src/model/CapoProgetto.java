@@ -19,6 +19,11 @@ public class CapoProgetto extends UtenteRegistrato {
 		 return spesa;
 	 } 
 	 
+	 public Vector<String[]> TotaleSpesaDipendente(){
+		 Vector<String[]> spesa = CapoProgettoDAO.getInstance().TotaleSpesaDipendente();
+		 return spesa;
+	 } 
+	 
 
 
 }
