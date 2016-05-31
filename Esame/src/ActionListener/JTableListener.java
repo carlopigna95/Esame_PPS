@@ -87,6 +87,7 @@ public class JTableListener implements ActionListener {
 		  DipendenteDAO.getInstance().aggiornaSpesa();
 		  Carrello.getInstance().sessionCar.clear();
 		  Ordine.getInstance().ordine_magazzino.clear();
+		  System.out.println();
 		  
 		  
 		}
