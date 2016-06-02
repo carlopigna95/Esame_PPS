@@ -29,7 +29,7 @@ import javax.swing.border.BevelBorder;
 public class GuiDipendente extends JFrame{
 	
 	public GuiDipendente(){
-		super("Dipendente");
+		super("Dipendente:");
 		Ascoltatore listener = new Ascoltatore(this);
 		AscoltatoreDipendente listener_dip = new AscoltatoreDipendente(this);
 		Container c = getContentPane();

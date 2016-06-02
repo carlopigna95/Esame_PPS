@@ -12,11 +12,11 @@ import javax.swing.table.DefaultTableModel;
 
 import Business.OrdineBusiness;
 import dao.OrdineDAO;
+import dao.ProgettoDAO;
 
 public class Ordine {
 
 	  //VARIBILI
-      private  int codice_ordine;
       float spesa_totale1 = 0;
       float spesa_totale2 = 0;
 	  UtenteRegistrato u = (UtenteRegistrato) Sessione.getInstance().session.get("utente_corrente");
@@ -26,7 +26,9 @@ public class Ordine {
 
 	  public HashMap< String,Vector<Object[]>> ordine_magazzino = new HashMap<String,Vector<Object[]>>();
 	  public HashMap< String,Float> spesaTotaleDipendente = new HashMap<String,Float>();
-	  public HashMap<String, Object> sessionOrdine = new HashMap<String, Object>();
+	  public HashMap< String,Object[]> spesaTotaleProgetto = new HashMap<String,Object[]>();
+	  public HashMap<String,Object> sessionOrdine = new HashMap<String, Object>();
+	  
 	  
 	  
 	  //ISTANZA
@@ -41,15 +43,15 @@ public class Ordine {
 	  
 	//METODI
 	public Vector<String[]> getProgetto() {
-		return OrdineDAO.getInstance().getNomeProgetto();
+		return ProgettoDAO.getInstance().getNomeProgetto();
 	}
 	
     public void confermaOrdine(){
     	if (Carrello.getInstance().sessionCar.isEmpty()){
     		JOptionPane.showMessageDialog(null, "Non ci sono prodotti nel carrello");
     	}else{
- 
-    		Vector<String[]> progetti = OrdineBusiness.getInstance().getProgetto();
+            Object [] spesa_progetto = new Object[2];
+     		Vector<String[]> progetti = OrdineBusiness.getInstance().getProgetto();
         	JComboBox<String> box = new JComboBox<String>();
         	for (int i=0;i<progetti.size();i++){
            	       
@@ -57,6 +59,7 @@ public class Ordine {
               }
             box.setEditable(false);
             String nome_progetto = (String) box.getSelectedItem();
+            spesa_progetto[0] = nome_progetto;
         	String [] options ={"OK"};
         	int pannello = JOptionPane.showOptionDialog(null,box,"Selezionare il progetto",JOptionPane.NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
     	    if(pannello == 0){
@@ -101,7 +104,9 @@ public class Ordine {
     		    
     		}      
     			   float spesa_ordine_misto = spesa_totale1 + spesa_totale2;
-    			   spesaTotaleDipendente.put("spesa_totale",spesa_ordine_misto);
+    			   spesa_progetto[1] = spesa_ordine_misto;
+    			   spesaTotaleProgetto.put("spesa_totale_progetto", spesa_progetto);
+    			   spesaTotaleDipendente.put("spesa_totale_dipendente",spesa_ordine_misto);
     			   lista_ordine1.add(ordine1);
     			   lista_ordine2.add(ordine2);
     			   ordine_magazzino.put("magazzino1",lista_ordine1);  

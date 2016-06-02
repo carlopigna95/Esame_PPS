@@ -25,6 +25,7 @@ public class Carrello {
 	
 	private static Carrello instance;
 	public HashMap<Prodotto , Integer> sessionCar = new HashMap<Prodotto, Integer>();
+	private JTable table;
 	
 	
 	public static synchronized Carrello getInstance() {
@@ -331,7 +332,11 @@ public class Carrello {
 	 
 	  
   }
-  
+  public void svuotaCarrello_confermaOrdine(DefaultTableModel dtm){
+	  sessionCar.clear();
+	  Ordine.getInstance().ordine_magazzino.clear();
+	  dtm.setRowCount(0);
+  }
 }
 
 

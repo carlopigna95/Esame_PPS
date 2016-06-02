@@ -2,13 +2,23 @@ package model;
 
 import java.util.Vector;
 
+import dao.OrdineDAO;
 import dao.ProgettoDAO;
 
 public class Progetto {
 	private String Nome_Progetto;
 	private float Spesa_attuale;
 	
-
+	private static Progetto instance;
+	
+	 public static Progetto getInstance()
+	    {
+	    	if (instance==null)
+	    	{
+	    		instance = new Progetto();
+	    	}
+	    	return instance;
+	    }
 	public Progetto() {
 		// TODO Auto-generated constructor stub
 	}

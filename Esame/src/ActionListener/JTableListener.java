@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import Business.OrdineBusiness;
 import dao.DipendenteDAO;
 import dao.OrdineDAO;
+import dao.ProgettoDAO;
 import model.Carrello;
 import model.Ordine;
 import model.Prodotto;
@@ -21,7 +22,7 @@ import view.RichiestePendenti;
 
 
 public class JTableListener implements ActionListener {
-     static JTable table;
+     JTable table;
      DefaultTableModel dtm;
      GuiMagazziniere magFinestra;
     
@@ -30,6 +31,10 @@ public class JTableListener implements ActionListener {
 		super();
 		this.table = table;
 		table.getModel();
+	}
+	public JTableListener(DefaultTableModel dtm) {
+		super();
+		this.dtm = dtm;
 	}
 	public JTableListener(DefaultTableModel dtm,JTable table, GuiMagazziniere magFinestra) {
 		super();
@@ -48,26 +53,16 @@ public class JTableListener implements ActionListener {
 		this.table = table;
 		dtm = (DefaultTableModel) table.getModel();
 	}
-	
-	
-
 
 	public JTableListener() {
 		// TODO Auto-generated constructor stub
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 	 if (arg0.getActionCommand().equals("aggiungi")){
 	 
 	 Carrello.getInstance().aggungiProdotto(table);
 	 Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-	 /*for(int i=0;i<lista.size();i++){
-		 for (int j=0;j<7;j++){
-			 System.out.println(lista.get(i)[j]); 
-		 }
-		 System.out.println("----------------------------------");
-	 }*/
     }
 	 else  if (arg0.getActionCommand().equals("rimuovi")){
 		 
@@ -85,9 +80,8 @@ public class JTableListener implements ActionListener {
 		  Ordine.getInstance().confermaOrdine();
 		  OrdineDAO.getInstance().inserisciOrdine();
 		  DipendenteDAO.getInstance().aggiornaSpesa();
-		  Carrello.getInstance().sessionCar.clear();
-		  Ordine.getInstance().ordine_magazzino.clear();
-		  System.out.println();
+		  ProgettoDAO.getInstance().aggionaSpesaProgetto();
+		  Carrello.getInstance().svuotaCarrello_confermaOrdine(dtm);
 		  
 		  
 		}

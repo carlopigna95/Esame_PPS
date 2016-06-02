@@ -26,13 +26,7 @@ public class OrdineDAO {
 	    	}
 	    	return instance;
 	    }
-public Vector<String[]> getNomeProgetto (){
-	DbConnection con = new DbConnection();
-	UtenteRegistrato u = (UtenteRegistrato) Sessione.getInstance().session.get("utente_corrente");
-	int idUtente = u.getIdUtenteRegistrato();
-	Vector<String[]> progetto = con.eseguiQuery("select NomeProgetto from progetto where idDipendente="+idUtente);
-	return progetto;
-}
+
 public int getCodiceMagazzino(int codice_prodotto){
 	  
 	       DbConnection con = new DbConnection();
@@ -48,7 +42,6 @@ public boolean inserisciOrdine(){
 	boolean ris1 = verificaNullVector(ordine_mag1);
 	boolean ris2 = verificaNullVector(ordine_mag2);
 	
-	System.out.println(ris1+","+ris2);
 	switch (ris1 + "-" + ris2) {
     case "false-false":
     	float totale_spesa1 =  (float) ordine_mag1.get(0)[0];

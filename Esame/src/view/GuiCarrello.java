@@ -37,7 +37,8 @@ public class GuiCarrello extends JFrame {
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
 		AscoltatoreDipendente lis = new AscoltatoreDipendente(this);
-		JTableListener list = new JTableListener();
+		
+		
 		
 		//OBJECT
 		
@@ -46,10 +47,7 @@ public class GuiCarrello extends JFrame {
 		JButton modifica = new JButton("Modifica quantità");
 		JButton conferma = new JButton("Conferma Ordine");
 		JButton catalogo = new JButton("Torna al Catalogo");
-		conferma.addActionListener(list);
-		conferma.setActionCommand("conferma");
-		catalogo.addActionListener(lis);
-		catalogo.setActionCommand("catalogo");
+		
 		
 		
 		
@@ -61,14 +59,17 @@ public class GuiCarrello extends JFrame {
 				 return false;
 		    }
 		};
-		
+		JTableListener list = new JTableListener(dtm);
 		JTable table = new JTable() {
 		    public Dimension getPreferredScrollableViewportSize() {
 		        return new Dimension(850, 250);
 		    }
 		};
 		//LISTENER
-		
+		conferma.addActionListener(list);
+		conferma.setActionCommand("conferma");
+		catalogo.addActionListener(lis);
+		catalogo.setActionCommand("catalogo");
 		JTableListener lisRimuovi = new JTableListener(dtm,table);
 		JTableListener lisModifica = new JTableListener(table);
 		rimuovi.addActionListener(lisRimuovi);

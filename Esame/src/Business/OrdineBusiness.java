@@ -16,8 +16,6 @@ public class OrdineBusiness {
 			instance = new OrdineBusiness();
 		return instance;
 	}
-	JTable table;
-	DefaultTableModel dmt;
 	public Vector<String[]> getProgetto(){
 		Ordine o = new Ordine();
 		return o.getProgetto();

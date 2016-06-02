@@ -63,7 +63,7 @@ public class DipendenteDAO {
 	 } 
 	public void aggiornaSpesa(){
 		
-		float spesa = Ordine.getInstance().spesaTotaleDipendente.get("spesa_totale");
+		float spesa = Ordine.getInstance().spesaTotaleDipendente.get("spesa_totale_dipendente");
 		UtenteRegistrato u = Sessione.getInstance().session.get("utente_corrente");
 		DbConnection con = new DbConnection();
 		int id = u.getIdUtenteRegistrato();
