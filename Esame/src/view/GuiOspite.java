@@ -31,9 +31,10 @@ public class GuiOspite extends JFrame {
 	Ascoltatore listener = new Ascoltatore(this);
 	Color BlueFacebook = new Color(59,89,152);
 	Color MediumBlueFacebook = new Color(109, 132, 180);
-
+    
 	public GuiOspite(){
 		super("Benvenuto");
+		System.out.println();
 		Container c = getContentPane();
 		c.setBackground(BlueFacebook);
 		JPanel nord1 = new JPanel();
