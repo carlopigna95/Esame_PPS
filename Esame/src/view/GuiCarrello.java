@@ -84,10 +84,24 @@ public class GuiCarrello extends JFrame {
 	    
 		
 		Vector<String[]> lista = Carrello.getInstance().listaProdotti();
+		double prezzoReale;
+		double prezzo;
+		int disponibilità;
+		double SpesaTotale = 0;
 		
 		for (int i=0;i<lista.size();i++){
 			dtm.addRow(lista.get(i));
+			//Aggiornamento del prezzo 
+			prezzo = Double.parseDouble(lista.get(i)[4]);
+			disponibilità = Integer.parseInt(lista.get(i)[6]);
+			prezzoReale = prezzo*disponibilità;
+			dtm.setValueAt(prezzoReale,i,4);
+			SpesaTotale = SpesaTotale + prezzoReale; 
+			
 		}
+		JLabel SpesaTot = new JLabel("Totale: € "+SpesaTotale);
+		SpesaTot.setForeground(Color.RED);
+		
 		
        
 		//IMPOSTAZIONI JTABLE
@@ -106,6 +120,7 @@ public class GuiCarrello extends JFrame {
 		
 		nord.add(avviso);
 	  	center.add(scrollPane);
+	  	center.add(SpesaTot);
 	  	sud.setLayout(new FlowLayout());
 	  	sud.add(catalogo);
 	  	sud.add(modifica);

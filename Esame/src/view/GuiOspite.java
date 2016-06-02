@@ -34,7 +34,6 @@ public class GuiOspite extends JFrame {
     
 	public GuiOspite(){
 		super("Benvenuto");
-		System.out.println();
 		Container c = getContentPane();
 		c.setBackground(BlueFacebook);
 		JPanel nord1 = new JPanel();
