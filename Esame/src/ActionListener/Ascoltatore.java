@@ -50,6 +50,11 @@ public class Ascoltatore implements ActionListener{
 			
 		}
 		
+		else if(arg0.getActionCommand().equals("accedi")){
+			GuiLogin win = new GuiLogin();
+			finestra.setVisible(false);
+		}
+		
 		
 	}
 	
