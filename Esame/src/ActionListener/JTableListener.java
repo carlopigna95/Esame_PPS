@@ -36,12 +36,12 @@ public class JTableListener implements ActionListener {
 		super();
 		this.dtm = dtm;
 	}
-	public JTableListener(DefaultTableModel dtm,JTable table, GuiMagazziniere magFinestra) {
+	/*public JTableListener(DefaultTableModel dtm,JTable table, GuiMagazziniere magFinestra) {
 		super();
 		this.table = table;
 		dtm = (DefaultTableModel) table.getModel();
 		this.magFinestra = magFinestra;
-	}
+	} */
 	
 	public JTableListener(DefaultTableModel dtm,JTable table) {
 		super();
@@ -86,7 +86,7 @@ public class JTableListener implements ActionListener {
 		  
 		}
 
-	 else if(arg0.getActionCommand().equals("OrdiniPendenti")){
+	/* else if(arg0.getActionCommand().equals("OrdiniPendenti")){
 		 int row = table.getSelectedRow();
 		 if(table.getSelectedRow() != -1){
 			 int codOrdine = Integer.parseInt((String)table.getValueAt(row, 2));
@@ -102,7 +102,7 @@ public class JTableListener implements ActionListener {
 		 }
 		 System.out.println(row);
 		 
-	 }
+	 } */
 	}
 }
 	

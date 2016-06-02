@@ -31,4 +31,10 @@ public class CapoProgettoBusiness {
 		 CapoProgetto cp = new CapoProgetto();
 		 return cp.TotaleSpesaProgetto();	 
 	 } 
+	 
+	 public Vector<String[]> TotaleSpesaDipendente(){
+		 
+		 CapoProgetto cp = new CapoProgetto();
+		 return cp.TotaleSpesaDipendente();	 
+	 } 
 }

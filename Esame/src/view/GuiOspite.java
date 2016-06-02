@@ -47,6 +47,8 @@ public class GuiOspite extends JFrame {
 		primo.setOpaque(true);
 	  	JButton esci1 = new JButton("Esci");
 	  	JButton esci2 = new JButton("Esci");
+	  	JButton accedi1 = new JButton("Accedi");
+	  	JButton accedi2 = new JButton("Accedi");
 
 	  	JTabbedPane tab = new JTabbedPane();
 	  	
@@ -63,9 +65,14 @@ public class GuiOspite extends JFrame {
 	    nord1.setLayout(new FlowLayout());
 	    nord1.add(scrollPane1);
 	    primo.add(sud1, BorderLayout.SOUTH);
+	    sud1.setLayout(new GridLayout(1,2,5,5));
 	    sud1.add(esci1);
+	    
 	    esci1.addActionListener(listener);
 	    esci1.setActionCommand("esci");
+	    sud1.add(accedi1);
+	    accedi1.addActionListener(listener);
+	    accedi1.setActionCommand("accedi");
 	    primo.setBackground(BlueFacebook);
 	    nord1.setBackground(BlueFacebook);
 	    sud1.setBackground(BlueFacebook);
@@ -82,9 +89,13 @@ public class GuiOspite extends JFrame {
 	    nord2.setLayout(new FlowLayout());
 	    nord2.add(scrollPane2);
 	    secondo.add(sud2, BorderLayout.SOUTH);
+	    sud2.setLayout(new GridLayout(1,2,5,5));
 	    sud2.add(esci2);
 	    esci2.addActionListener(listener);
 	    esci2.setActionCommand("esci");
+	    sud2.add(accedi2);
+	    accedi2.addActionListener(listener);
+	    accedi2.setActionCommand("accedi");
 	    secondo.setBackground(BlueFacebook);
 	    nord2.setBackground(BlueFacebook);
 	    sud2.setBackground(BlueFacebook);
