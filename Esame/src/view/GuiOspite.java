@@ -58,7 +58,7 @@ public class GuiOspite extends JFrame {
 	  	
 	  	JScrollPane scrollPane1 = new JScrollPane(creatore_table1());
 	  	scrollPane1.setBorder(new LineBorder(Color.white));
-	  	scrollPane1.setBorder(new LineBorder(Color.BLACK,3));
+	  	scrollPane1.setBorder(new LineBorder(Color.BLACK,1));
 	  	scrollPane1.getViewport().setBackground(MediumBlueFacebook);
 	    add(primo);
 	    primo.add(nord1,BorderLayout.NORTH);
@@ -81,7 +81,7 @@ public class GuiOspite extends JFrame {
 	    secondo.setLayout(new BorderLayout());
 	  	JScrollPane scrollPane2 = new JScrollPane(creatore_table2());
 	  	scrollPane2.setBorder(new LineBorder(Color.white));
-	  	scrollPane2.setBorder(new LineBorder(Color.BLACK,3));
+	  	scrollPane2.setBorder(new LineBorder(Color.BLACK,1));
 	  	scrollPane2.getViewport().setBackground(MediumBlueFacebook);
 	  	
 	    c.add(secondo);

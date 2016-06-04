@@ -21,7 +21,7 @@ public class Main {
 		//GuiOspite a = new GuiOspite();
 		//GuiDipendente a = new GuiDipendente();
 		//GuiMagazziniere app = new GuiMagazziniere();
-		
+		//SpesaPerProgetto a = new SpesaPerProgetto();
 		
 		
 	}

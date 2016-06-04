@@ -45,7 +45,7 @@ private static MagazziniereDAO instance;
 		Vector<String[]> carenze = con.eseguiQuery("select Prodotto.Nome, Prodotto.Categoria, Prodotto.Descrizione, "
 				+ "ProdottoInMagazzino.DisponibilitaInMagazzino, Prodotto.Prezzo, Prodotto.Produttore from Prodotto inner join"
 				+ " ProdottoInMagazzino on Prodotto.CodiceProdotto = ProdottoInMagazzino.CodiceProdottoInMagazzino where "
-				+ "idMagazzino = '"+codMagazzino+"'and DisponibilitaInMagazzino < 6");
+				+ "idMagazzino = '"+codMagazzino+"'and DisponibilitaInMagazzino < 5");
 		
 		
 		return carenze;
@@ -68,7 +68,7 @@ private static MagazziniereDAO instance;
 		return table;
 	}
 	
-	public Vector<String[]> RichiestePendenti(int codOrdine){
+	public Vector<String[]> DettaglioRichiestePendenti(int codOrdine){
 		DbConnection con = DbConnection.getInstance();
 		int codMagazzino = MagazziniereBusiness.getInstance().CodMagazzino();
 		

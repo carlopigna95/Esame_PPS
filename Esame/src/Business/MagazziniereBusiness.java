@@ -44,9 +44,9 @@ public class MagazziniereBusiness {
 		  return m.TableRichiestePendenti();		  
 	  }
 	  
-	  public Vector<String[]> RichiestePendenti(int codOrdine){
+	  public Vector<String[]> DettaglioRichiestePendenti(int codOrdine){
 		  Magazziniere m = new Magazziniere();
-		  return m.RichiestePendenti(codOrdine);
+		  return m.DettaglioRichiestePendenti(codOrdine);
 	  }
 	  public void EvadiOrdine(){
 		  Magazziniere m = new Magazziniere();
