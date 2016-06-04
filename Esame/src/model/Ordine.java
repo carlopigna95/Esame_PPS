@@ -28,6 +28,7 @@ public class Ordine {
 	  public HashMap< String,Float> spesaTotaleDipendente = new HashMap<String,Float>();
 	  public HashMap< String,Object[]> spesaTotaleProgetto = new HashMap<String,Object[]>();
 	  public HashMap<String,Object> sessionOrdine = new HashMap<String, Object>();
+	  public HashMap<String,Integer> prodotti = new HashMap<String,Integer>();
 	  
 	  
 	  
@@ -76,6 +77,7 @@ public class Ordine {
     			   while(iterator.hasNext()){		   
     			Prodotto key = iterator.next();
     			int codice_prodotto = key.codiceProdotto();
+    			prodotti.addElement(codice_prodotto);
     			int codice_magazzino = OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
     			int quantità = Carrello.getInstance().sessionCar.get(key);
     	        float prezzo = key.getPrezzo() * quantità;
