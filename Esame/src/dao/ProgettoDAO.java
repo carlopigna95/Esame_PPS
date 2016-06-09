@@ -36,7 +36,6 @@ public class ProgettoDAO {
 	   Object [] info = Ordine.getInstance().spesaTotaleProgetto.get("spesa_totale_progetto");
 	   String nome_progetto = (String) info[0];
 	   Float spesa = (Float) info[1];
-	   System.out.println(nome_progetto+spesa);
 	   con.eseguiAggiornamento("update progetto set TotaleSpesaProg = TotaleSpesaProg +"+spesa+" WHERE NomeProgetto= \""+nome_progetto+"\"");
 	   
    }	

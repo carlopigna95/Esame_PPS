@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +34,7 @@ public class GuiCarrello extends JFrame {
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
 		AscoltatoreDipendente lis = new AscoltatoreDipendente(this);
+
 		
 		
 		
@@ -55,23 +57,15 @@ public class GuiCarrello extends JFrame {
 				 return false;
 		    }
 		};
-		JTableListener list = new JTableListener(dtm);
+
 		JTable table = new JTable() {
 		    public Dimension getPreferredScrollableViewportSize() {
 		        return new Dimension(850, 250);
 		    }
+
 		};
-		//LISTENER
-		conferma.addActionListener(list);
-		conferma.setActionCommand("conferma");
-		catalogo.addActionListener(lis);
-		catalogo.setActionCommand("catalogo");
-		JTableListener lisRimuovi = new JTableListener(dtm,table);
-		JTableListener lisModifica = new JTableListener(table);
-		rimuovi.addActionListener(lisRimuovi);
-		rimuovi.setActionCommand("rimuovi");
-		modifica.addActionListener(lisModifica);
-		modifica.setActionCommand("modifica");
+		
+		
 		
 		//DATI JTABLE	
 		String columnNames1[] = new String[] { "Nome", "Categoria", "Descrizione","Disponibilita "
@@ -91,11 +85,29 @@ public class GuiCarrello extends JFrame {
 			prezzo = Double.parseDouble(lista.get(i)[4]);
 			disponibilità = Integer.parseInt(lista.get(i)[6]);
 			prezzoReale = prezzo*disponibilità;
-			dtm.setValueAt(prezzoReale,i,4);
+			//per troncare il double alla seconda cifra decimale
 			SpesaTotale = SpesaTotale + prezzoReale; 
+			SpesaTotale = Math.floor(SpesaTotale*100);
+			SpesaTotale = SpesaTotale/100;
+			String PrezzoString = Double.toString(prezzoReale);
+			dtm.setValueAt(PrezzoString,i,4);
 			
 		}
 		JLabel SpesaTot = new JLabel("Totale: € "+SpesaTotale);
+		
+		JTableListener listStampa = new JTableListener(dtm,table,SpesaTotale);
+
+		//LISTENER
+		conferma.addActionListener(listStampa);
+		conferma.setActionCommand("conferma");
+		catalogo.addActionListener(lis);
+		catalogo.setActionCommand("catalogo");
+		JTableListener lisRimuovi = new JTableListener(dtm,table);
+		JTableListener lisModifica = new JTableListener(table);
+		rimuovi.addActionListener(lisRimuovi);
+		rimuovi.setActionCommand("rimuovi");
+		modifica.addActionListener(lisModifica);
+		modifica.setActionCommand("modifica");
 		
 		
        

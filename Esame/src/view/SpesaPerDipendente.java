@@ -26,6 +26,7 @@ public class SpesaPerDipendente extends JFrame {
 	Color MediumBlueFacebook = new Color(109, 132, 180);
 	
 	public SpesaPerDipendente(){
+		super("Spesa per Dipendente");
 		Container c = getContentPane();
 		JPanel nord = new JPanel();
 		JPanel sud = new JPanel();

@@ -113,6 +113,7 @@ public class GuiMagazziniere extends JFrame {
 		  
 		  
 		  
+		  
 		  //---------PRIMO TAB--------------------------
 		  
 		  primo.setLayout(new BorderLayout());
@@ -139,7 +140,7 @@ public class GuiMagazziniere extends JFrame {
 		  secondo.setLayout(new BorderLayout());
 		  secondo.add(nord2,BorderLayout.NORTH);
 		  secondo.add(sud2,BorderLayout.SOUTH);
-		  JScrollPane ScrollPaneDisponibilità = new JScrollPane(creatore_TableRichiestePendenti());
+		  JScrollPane ScrollPaneDisponibilità = new JScrollPane(creatore_JTable());
 		  ScrollPaneDisponibilità.getViewport().setBackground(MediumBlueFacebook);
 		  ScrollPaneDisponibilità.setBorder(new LineBorder(Color.BLACK,1));
 

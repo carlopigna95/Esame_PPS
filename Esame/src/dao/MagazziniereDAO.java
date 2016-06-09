@@ -78,7 +78,10 @@ private static MagazziniereDAO instance;
 				+ "Prodotto.CodiceProdotto = costituito_da.idProdotto and costituito_da.idOrdine ='"+codOrdine+"' "
 				+ "inner join prodottoinmagazzino on prodottoinmagazzino.CodiceProdottoInMagazzino"
 				+ " = costituito_da.idProdotto and prodottoinmagazzino.idMagazzino ='"+codMagazzino+"'");
+		
 		return table;
+		
+	
 	}
 	
 	public void EvadiOrdine(){
