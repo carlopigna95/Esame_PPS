@@ -60,7 +60,7 @@ public class MyTableListener implements TableModelListener{
 					int vecchia_disp = Integer.parseInt(vettore1.get(row)[3]); 
 					int nuova_disp = vecchia_disp + quantita;
 					
-						if (nuova_disp <6){
+						if (nuova_disp <5){
 							model.setValueAt(nuova_disp, row, 3);
 						}
 						

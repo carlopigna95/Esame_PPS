@@ -46,6 +46,7 @@ public class Magazziniere extends UtenteRegistrato {
 		
 	}
 	
+	//per la generazione della Table dei prodotti con poca disponibilità
 	public Vector<String[]> PocaDisponibilita() {
 		
 		MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
@@ -61,9 +62,9 @@ public class Magazziniere extends UtenteRegistrato {
 }
 	
 //table per la finestra a parte delle dettaglio ordine pendente
-	public Vector<String[]> RichiestePendenti(int codOrdine){
+	public Vector<String[]> DettaglioRichiestePendenti(int codOrdine){
 	MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
-	return magazziniere.RichiestePendenti(codOrdine);
+	return magazziniere.DettaglioRichiestePendenti(codOrdine);
 	}
 	
 	public void EvadiOrdine(){

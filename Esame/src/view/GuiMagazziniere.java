@@ -57,40 +57,72 @@ public class GuiMagazziniere extends JFrame {
 	AscoltatoreMagazziniere listener_magazz = new AscoltatoreMagazziniere(this);
 	Color BlueFacebook = new Color(59,89,152);
 	Color MediumBlueFacebook = new Color(109, 132, 180);
+	UtenteRegistrato utente = Sessione.getInstance().session.get("utente_corrente");
+	private String nome = utente.getNome();
+	private String cognome = utente.getCognome();
+	
 	
 	public GuiMagazziniere(){
+		
 		  super("Magazziniere");
 		  Container c = getContentPane();
-		  c.setBackground(BlueFacebook);
 		  JTabbedPane tab = new JTabbedPane();
+		  JLabel accesso = new JLabel(nome+" "+cognome);
+		  
+		  JPanel utente = new JPanel();
+		  JPanel principale = new JPanel();
 		  JPanel primo = new JPanel();
 		  JPanel secondo= new JPanel();
 		  JPanel nord1 = new JPanel();
 		  JPanel sud1 = new JPanel();
 		  JPanel nord2 = new JPanel();
 		  JPanel sud2 = new JPanel();
-		  primo.setOpaque(true);
-		  primo.setBackground(BlueFacebook);
-		  nord1.setOpaque(true);
-		  nord1.setBackground(BlueFacebook);
-		  sud1.setOpaque(true);
-		  sud1.setBackground(BlueFacebook);
 		  JButton logout1 = new JButton("Log-out");
 		  JButton esci1 = new JButton("Esci");
 		  JButton dettagli = new JButton("Dettagli Ordine");
 		  JButton logout2 = new JButton("Log-out");
 		  JButton esci2 = new JButton("Esci");
 		  
+		  //Colori e grafica
+		  c.setBackground(BlueFacebook);
+		  primo.setOpaque(true);
+		  primo.setBackground(BlueFacebook);
+		  secondo.setOpaque(true);
+		  secondo.setBackground(BlueFacebook);
+		  nord1.setOpaque(true);
+		  nord1.setBackground(BlueFacebook);
+		  sud1.setOpaque(true);
+		  sud1.setBackground(BlueFacebook);
+		  nord2.setOpaque(true);
+		  nord2.setBackground(BlueFacebook);
+		  sud2.setOpaque(true);
+		  sud2.setBackground(BlueFacebook);
+		  accesso.setForeground(Color.WHITE);
+		  principale.setBackground(BlueFacebook);
+		  principale.setPreferredSize(getPreferredSize());
+		  utente.setOpaque(true);
+		  utente.setBackground(BlueFacebook);
+		  primo.setBorder(new LineBorder(Color.black, 2, true));
+		  secondo.setBorder(new LineBorder(Color.black, 2, true));
+		  
+		  c.setLayout(new BorderLayout());
+		  c.add(utente,BorderLayout.NORTH);
+		  c.add(principale);
+		  utente.add(accesso);
+		  
+		  
+		  
 		  
 		  //---------PRIMO TAB--------------------------
 		  
-		  c.add(primo);
 		  primo.setLayout(new BorderLayout());
 		  primo.add(nord1,BorderLayout.NORTH);
 		  primo.add(sud1,BorderLayout.SOUTH);
 		  JScrollPane ScrollPaneRichieste = new JScrollPane(creatore_TableRichiestePendenti());
-		  ScrollPaneRichieste.getViewport().setBackground(BlueFacebook);
-		 
+		  ScrollPaneRichieste.getViewport().setBackground(MediumBlueFacebook);
+		  ScrollPaneRichieste.setBorder(new LineBorder(Color.BLACK,1));
+
+	
 		  nord1.add(ScrollPaneRichieste);
 		  sud1.setLayout(new GridLayout(1,3,5,5));
 		  sud1.add(dettagli); 
@@ -104,12 +136,15 @@ public class GuiMagazziniere extends JFrame {
 		  esci1.setActionCommand("esci");
 		  
 		  //--------SECONDO TAB---------------------
-		  c.add(secondo);
 		  secondo.setLayout(new BorderLayout());
 		  secondo.add(nord2,BorderLayout.NORTH);
 		  secondo.add(sud2,BorderLayout.SOUTH);
-		  nord2.add(creatore_JTable()); 
-		 
+		  JScrollPane ScrollPaneDisponibilità = new JScrollPane(creatore_TableRichiestePendenti());
+		  ScrollPaneDisponibilità.getViewport().setBackground(MediumBlueFacebook);
+		  ScrollPaneDisponibilità.setBorder(new LineBorder(Color.BLACK,1));
+
+	
+		  nord2.add(ScrollPaneDisponibilità); 
 		  sud2.add(logout2);
 		  sud2.setLayout(new GridLayout(1,2,5,5));
 		  logout2.addActionListener(listener);
@@ -119,9 +154,12 @@ public class GuiMagazziniere extends JFrame {
 		  esci2.setActionCommand("esci");
 		
 	        
-	      c.add(tab);
+	      principale.add(tab);
+	      tab.setPreferredSize(new Dimension(620,470));
 	      tab.add("Richieste pendenti", primo);
 	      tab.add("Rifornimento",secondo);
+	      
+	      
 	      setDefaultCloseOperation(EXIT_ON_CLOSE);
 		  setSize(650,550);
 		  setVisible(true);
@@ -132,12 +170,12 @@ public class GuiMagazziniere extends JFrame {
 	
 		
 	//-----------JTable prodotti con poca disponibilità-------------
-		public JScrollPane creatore_JTable(){
+		public JTable creatore_JTable(){
 			
 			MyTableModel mtm = new MyTableModel();
 			final JTable table = new JTable() {
 				public Dimension getPreferredScrollableViewportSize(){
-					return new Dimension(600,400);
+					return new Dimension(600,100);
 				}
 			};
 			table.setRowSelectionAllowed(true);
@@ -153,8 +191,7 @@ public class GuiMagazziniere extends JFrame {
 		  	}
 		  	mtm.addColumn("Seleziona",checkbox);
 		  	mtm.addTableModelListener(TableListener);
-		  	JScrollPane scrollPane = new JScrollPane(table);
-		  	return scrollPane;
+		  	return table;
 		  	
 		    
 		}
@@ -166,7 +203,7 @@ public class GuiMagazziniere extends JFrame {
 			final JTable table = new JTable(){
 				private static final long serialVersionUID = 1L;
 				public Dimension getPreferredScrollableViewportSize(){
-					return new Dimension(600,400);
+					return new Dimension(600,100);
 				}
 			};
 			table.setRowSelectionAllowed(true);

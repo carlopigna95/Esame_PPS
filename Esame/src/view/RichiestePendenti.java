@@ -57,11 +57,11 @@ public class RichiestePendenti extends JFrame {
 				mtm.setColumnIdentifiers(columnNames);
 				table.setModel(mtm);
 				JTableListener lis = new JTableListener(table);
-				for(int i=0;i<magazz_business.RichiestePendenti(codOrdine).size();i++){
-					mtm.addRow(magazz_business.RichiestePendenti(codOrdine).get(i));
+				for(int i=0;i<magazz_business.DettaglioRichiestePendenti(codOrdine).size();i++){
+					mtm.addRow(magazz_business.DettaglioRichiestePendenti(codOrdine).get(i));
 					//prende il numero degli ordinati e il prezzo e li moltiplica restituendo il prezzo giusto
-					int numeroOrdinati = Integer.parseInt(magazz_business.RichiestePendenti(codOrdine).get(i)[3]);
-					float prezzo_singolo = Float.parseFloat((magazz_business.RichiestePendenti(codOrdine).get(i)[4]));
+					int numeroOrdinati = Integer.parseInt(magazz_business.DettaglioRichiestePendenti(codOrdine).get(i)[3]);
+					float prezzo_singolo = Float.parseFloat((magazz_business.DettaglioRichiestePendenti(codOrdine).get(i)[4]));
 					float prezzoTotaleProdotto = numeroOrdinati*prezzo_singolo;
 					mtm.setValueAt(prezzoTotaleProdotto, i, 4);
 					}

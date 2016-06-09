@@ -1,39 +1,48 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Vector;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 import ActionListener.Ascoltatore;
 import ActionListener.AscoltatoreDipendente;
 import ActionListener.JTableListener;
 import dao.DipendenteDAO;
-import dao.UtenteRegistratoDAO;
+import model.Sessione;
+import model.Sessione;
 import model.Sessione;
 import model.UtenteRegistrato;
 
-import javax.swing.border.BevelBorder;
-
 public class GuiDipendente extends JFrame{
+	Color BlueFacebook = new Color(59,89,152);
+	Color MediumBlueFacebook = new Color(109, 132, 180);
+	UtenteRegistrato utente = Sessione.getInstance().session.get("utente_corrente");
+	private String nome = utente.getNome();
+	private String cognome = utente.getCognome();
+	
+	
+	
 	public GuiDipendente(){
 		super("Dipendente");
 		Ascoltatore listener = new Ascoltatore(this);
 		AscoltatoreDipendente listener_dip = new AscoltatoreDipendente(this);
 		Container c = getContentPane();
 		
+		JPanel principale = new JPanel();
+		JPanel utente = new JPanel(); 
 		JPanel primo = new JPanel();
 		JPanel secondo = new JPanel();   
 		JPanel nord1 = new JPanel();
@@ -41,6 +50,7 @@ public class GuiDipendente extends JFrame{
 		JPanel nord2 = new JPanel();
 		JPanel sud2 = new JPanel();
 		JTabbedPane tab = new JTabbedPane();
+		JLabel accesso = new JLabel(nome+" "+cognome);
 	
 	    
 		JButton carrello1 = new JButton("Vai al Carrello");
@@ -51,6 +61,8 @@ public class GuiDipendente extends JFrame{
 		JButton logout2 = new JButton("Log-Out");
 		JButton esci1 = new JButton("Esci");
 		JButton esci2 = new JButton("Esci");
+		
+		
 		
 		DipendenteDAO dipendente = DipendenteDAO.getInstance();
 		
@@ -86,7 +98,11 @@ public class GuiDipendente extends JFrame{
 	  	
 	  	
 	  	//PANNELLI
+	  	c.add(utente, BorderLayout.NORTH);
+	  	utente.add(accesso);
+	  	c.add(principale);
 	  	JScrollPane scrollPane1 = new JScrollPane(table1);
+		scrollPane1.getViewport().setBackground(MediumBlueFacebook);
 	  	primo.add(nord1,BorderLayout.NORTH);
 	  	nord1.add(scrollPane1);
 	  	primo.add(sud1, BorderLayout.SOUTH);
@@ -142,6 +158,7 @@ public class GuiDipendente extends JFrame{
 	  	//PANNELLI
 	  	
 	  	JScrollPane scrollPane2 = new JScrollPane(table2);
+		scrollPane2.getViewport().setBackground(MediumBlueFacebook);
 	  	secondo.setLayout(new BorderLayout());
 	  	secondo.add(nord2,BorderLayout.NORTH);
 	  	nord2.add(scrollPane2);
@@ -153,6 +170,7 @@ public class GuiDipendente extends JFrame{
 		sud2.add(aggiungi2);
 		aggiungi2.addActionListener(lis2);
 		aggiungi2.setActionCommand("aggiungi");
+
 	  	sud2.add(logout2);
 	  	logout2.addActionListener(listener);
 		logout2.setActionCommand("logout");
@@ -164,17 +182,37 @@ public class GuiDipendente extends JFrame{
 	  	
 	  	 tab.add("Maglie", primo);
 		 tab.add("Lecce", secondo);
-		 c.add(tab);
-	    
-	    setSize(900,550);
+		 principale.add(tab);
+		 
+		//Colori e grafica
+			c.setBackground(BlueFacebook);
+			primo.setOpaque(true);
+			primo.setBackground(BlueFacebook);
+			secondo.setOpaque(true);
+			secondo.setBackground(BlueFacebook);
+			nord1.setOpaque(true);
+			nord1.setBackground(BlueFacebook);
+			sud1.setOpaque(true);
+			sud1.setBackground(BlueFacebook);
+			nord2.setOpaque(true);
+			nord2.setBackground(BlueFacebook);
+			sud2.setOpaque(true);
+			sud2.setBackground(BlueFacebook);
+			accesso.setForeground(Color.WHITE);
+			principale.setBackground(BlueFacebook);
+			principale.setPreferredSize(getPreferredSize());
+			utente.setOpaque(true);
+			utente.setBackground(BlueFacebook);
+			primo.setBorder(new LineBorder(Color.black, 2, true));
+			secondo.setBorder(new LineBorder(Color.black, 2, true));
+			scrollPane1.getViewport().setBackground(MediumBlueFacebook);
+			scrollPane1.setBorder(new LineBorder(Color.BLACK,1));
+			scrollPane2.getViewport().setBackground(MediumBlueFacebook);
+			scrollPane2.setBorder(new LineBorder(Color.BLACK,1));
+			
+	    setSize(900,450);
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);
 	    setVisible(true);
 	    
 	}
-	
-
-	     
-}
-	
-
-
+	}

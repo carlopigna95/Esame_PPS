@@ -37,42 +37,46 @@ public class GuiLogin extends JFrame {
 			Container f = getContentPane();
 			JPanel nord = new JPanel();
 			JPanel sud = new JPanel();
-			f.setLayout(new BorderLayout());
-            f.setBackground(BlueFacebook);
+			JButton accedi = new JButton("Accedi");
+			JButton accediOspite = new JButton("Accedi come Ospite");
             JLabel user = new JLabel("                     Username");
-            username.setBorder(new LineBorder(Color.BLACK));
-            password.setBorder(new LineBorder(Color.BLACK));
-            user.setForeground(Color.white);
+            JLabel pass = new JLabel("                     Password");
+			
+            f.setLayout(new BorderLayout());
             f.add(nord, BorderLayout.NORTH);
     		nord.setBorder(BorderFactory.createEmptyBorder(20,10,10,10));
             nord.setLayout(new GridLayout(2,2,5,5));
 			nord.add(user);
-			nord.setBackground(BlueFacebook);
 			nord.add(username);
-            JLabel pass = new JLabel("                     Password");
-            pass.setForeground(Color.white);
             nord.add(pass);
 			nord.add(password);			
-		   
-		   
-			JButton accediOspite = new JButton("Accedi come Ospite");
-			accediOspite.setBackground(BlueFacebook);
-			accediOspite.setForeground(Color.white);
-			accediOspite.setBorder(new LineBorder(BlueFacebook));
 			f.add(sud, BorderLayout.SOUTH);
 			sud.setLayout(new GridLayout(1,2));
 			sud.add(accediOspite);
 			accediOspite.addActionListener(listener);
 			accediOspite.setActionCommand("accediOspite");
 
-        	JButton accedi = new JButton("Accedi");
+        	
         	accedi.setForeground(Color.white);
 			accedi.setBackground(BlueFacebook);
+			
+			accedi.addActionListener(new AscoltatoreLogin(this));
+			sud.add(accedi); 
+			
+			//Colori e grafica
+			f.setBackground(BlueFacebook);
+			user.setForeground(Color.white);
+			nord.setBackground(BlueFacebook);
+			sud.setBackground(BlueFacebook);
+            pass.setForeground(Color.white);
+            accediOspite.setBackground(BlueFacebook);
+			accediOspite.setForeground(Color.white);
+			accediOspite.setBorder(new LineBorder(BlueFacebook));
 			accedi.setBorder(new LineBorder(BlueFacebook));
 			username.setBorder(new LineBorder(BlueFacebook));
 			password.setBorder(new LineBorder(BlueFacebook));
-			accedi.addActionListener(new AscoltatoreLogin(this));
-			sud.add(accedi); 
+			sud.setBorder(BorderFactory.createEmptyBorder(0,0,8,0));
+
 			
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			setSize(500,150);
