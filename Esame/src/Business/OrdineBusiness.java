@@ -20,12 +20,16 @@ public class OrdineBusiness {
 		Ordine o = new Ordine();
 		return o.getProgetto();
 	} 
-	public void conferma(){
+	public void confermaOrdine(){
 		Ordine o = new Ordine();
 		o.confermaOrdine();
 	}
-	public boolean inserisciOr(){
+	public boolean inserisciOrdine(){
 		Ordine o = new Ordine();
-		return o.inserisciOrdini();
+		return o.inserisciOrdine();
+	}
+	public int getCodiceMagazzino(int codice_prodotto){
+		Ordine o = new Ordine();
+		return o.getCodiceMagazzino(codice_prodotto);
 	}
 }

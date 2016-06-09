@@ -34,5 +34,10 @@ public class CarrelloBusiness {
 		c.modificaQuantita(table,dtm);
 		
 	}
+	public void svuotaCarrello_confermaOrdine(DefaultTableModel dtm){
+		Carrello c = new Carrello();
+		c.svuotaCarrello_confermaOrdine(dtm);
+		
+	}
 	
 }

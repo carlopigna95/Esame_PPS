@@ -2,8 +2,8 @@ package model;
 
 
 import java.util.HashMap;
+
 import java.util.Iterator;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Vector;
 
@@ -11,9 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.transform.OutputKeys;
-
-import org.omg.CORBA.OBJ_ADAPTER;
 
 public class Carrello {
 

@@ -28,7 +28,7 @@ public class Ordine {
 	  public HashMap< String,Float> spesaTotaleDipendente = new HashMap<String,Float>();
 	  public HashMap< String,Object[]> spesaTotaleProgetto = new HashMap<String,Object[]>();
 	  public HashMap<String,Object> sessionOrdine = new HashMap<String, Object>();
-	  public HashMap<String,Integer> prodotti = new HashMap<String,Integer>();
+	  public HashMap<String,Vector<Integer[]>> prodotti = new HashMap<String,Vector<Integer[]>>();
 	  
 	  
 	  
@@ -69,15 +69,16 @@ public class Ordine {
     			   Iterator<Prodotto> iterator = keySet.iterator();
     			   Vector<Object[]> lista_ordine1 = new Vector<Object[]>();
     			   Vector<Object[]> lista_ordine2 = new Vector<Object[]>();
-    			   Vector<Integer> prodotti = new Vector<Integer>();
-    		float spesa_totale1 = 0;
-    		Object [] ordine1 = new Object[4];
-            Object [] ordine2 = new Object[4];
+    			   Vector<Prodotto> lista_prodotti = new Vector<Prodotto>(); 
+    			  
+    		       float spesa_totale1 = 0;
+    		       Object [] ordine1 = new Object[4];
+                   Object [] ordine2 = new Object[4];
     		
     			   while(iterator.hasNext()){		   
     			Prodotto key = iterator.next();
+    			lista_prodotti.addElement(key);
     			int codice_prodotto = key.codiceProdotto();
-    			prodotti.addElement(codice_prodotto);
     			int codice_magazzino = OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
     			int quantità = Carrello.getInstance().sessionCar.get(key);
     	        float prezzo = key.getPrezzo() * quantità;
@@ -99,7 +100,7 @@ public class Ordine {
     	                 ordine2[1] = nome_progetto; 
                          ordine2[2] = codice_dipendente;
                          ordine2[3] = codice_magazzino;
-                         
+                        
     		    break;
     		  
     		    }
@@ -117,8 +118,10 @@ public class Ordine {
     	}
     	
     }
-    
-    public boolean inserisciOrdini(){
+    public int getCodiceMagazzino(int codice_prodotto){
+    	return OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
+    }
+    public boolean inserisciOrdine(){
     	return OrdineDAO.getInstance().inserisciOrdine();
     }
     public void setStato_Ordine(boolean stato_ordine) {

@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Vector;
+
+import dao.DipendenteDAO;
 
 public class Dipendente extends UtenteRegistrato {
 
@@ -17,7 +20,17 @@ public Integer getCodice_Dipendente() {
 public void setCodice_Dipendente(Integer codice_Dipendente) {
 	Codice_Dipendente = codice_Dipendente;
 }
- 
-
+ public Vector<String[]> GeneraCatalogo1(){
+	 return DipendenteDAO.getInstance().GeneraCatalogo1();
+ }
+ public Vector<String[]> GeneraCatalogo2(){
+	 return DipendenteDAO.getInstance().GeneraCatalogo2();
+ }
+ public Vector<String[]> Disponibilità(){
+	 return DipendenteDAO.getInstance().Disponibilita();
+ }
+public void aggiornaSpesa(){
+	DipendenteDAO.getInstance().aggiornaSpesa();
+}
 
 }

@@ -22,6 +22,12 @@ public class Progetto {
 	public Progetto() {
 		// TODO Auto-generated constructor stub
 	}
+	public Vector<String[]> getNomeProgetto(){
+		return ProgettoDAO.getInstance().getNomeProgetto();
+	}
+	public void aggionaSpesaProgetto(){
+		ProgettoDAO.getInstance().aggionaSpesaProgetto();
+	}
 	public Progetto(String nomeProgetto){
 		super();
 	}
