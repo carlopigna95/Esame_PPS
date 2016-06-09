@@ -22,6 +22,7 @@ public class Main {
 		//GuiDipendente a = new GuiDipendente();
 		//GuiMagazziniere app = new GuiMagazziniere();
 		//SpesaPerProgetto a = new SpesaPerProgetto();
+		System.out.println();
 		
 		
 	}
