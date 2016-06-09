@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import ActionListener.AscoltatoreCapoProgetto;
 import ActionListener.JTableListener;
@@ -27,6 +28,7 @@ public class SpesaPerProgetto extends JFrame {
 	
 	
 	public SpesaPerProgetto(){
+		super("Spesa per Progetto");
 		Container c = getContentPane(); 
 		JPanel nord = new JPanel();
 		JPanel sud = new JPanel();
@@ -74,22 +76,32 @@ public class SpesaPerProgetto extends JFrame {
 	}
 	
 	public JTable TableSpesaProgetto(){
-		MyTableModel mtm = new MyTableModel();
-		final JTable table = new JTable(){
+		DefaultTableModel dtm = new DefaultTableModel(0,0){private static final long serialVersionUID = 1L;
+
+			@Override 
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+			JTable table = new JTable(){
 			public Dimension getPreferredScrollableViewportSize(){
 		  		return new Dimension(400,100);
 			}
-		};
-		table.setRowSelectionAllowed(true);
+			};
+	
 		String columnNames[] = new String[] { "Nome Progetto","Spesa Totale €"};
-		mtm.setColumnIdentifiers(columnNames);
-		table.setModel(mtm);
+		dtm.setColumnIdentifiers(columnNames);
+		table.setModel(dtm);
 		JTableListener lis = new JTableListener(table);
 		for(int i=0;i<CapoProgettoBusiness.getInstance().TotaleSpesaProgetto().size();i++){
-			mtm.addRow(CapoProgettoBusiness.getInstance().TotaleSpesaProgetto().get(i));
+			dtm.addRow(CapoProgettoBusiness.getInstance().TotaleSpesaProgetto().get(i));
 			}
 		table.setSize(new Dimension(400,100));
+		table.getTableHeader().setReorderingAllowed(false);
+	  	table.setModel(dtm);
+	  	table.setRowHeight(30);
 	  	return table;
 	}
 
 }
+	
