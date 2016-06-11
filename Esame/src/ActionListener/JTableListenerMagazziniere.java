@@ -32,8 +32,9 @@ public class JTableListenerMagazziniere implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		
 		  if(arg0.getActionCommand().equals("OrdiniPendenti")){
-			 int row = table.getSelectedRow();
-			 if(table.getSelectedRow() != -1){
+			 
+			 try{int row = table.getSelectedRow();
+			 table.getSelectedRow();
 				 int codOrdine = Integer.parseInt((String)table.getValueAt(row, 2));
 				 //Viene creato un Hashmap che registra il codice dell'ordine
 				 Ordine.getInstance().sessionOrdine.put("Ordine_corrente", codOrdine);
@@ -42,7 +43,7 @@ public class JTableListenerMagazziniere implements ActionListener {
 				 RichiestePendenti win = new RichiestePendenti(codOrdine);
 				 
 			 }
-			 else {
+			 catch(ArrayIndexOutOfBoundsException e) {
 				 JOptionPane.showMessageDialog(table, "Selezionare una riga");
 			 }
 			 

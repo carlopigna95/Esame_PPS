@@ -154,7 +154,7 @@ public class GuiCarrello extends JFrame {
 		    
 		    
 	  	setSize(900,550);
-	  	setDefaultCloseOperation(HIDE_ON_CLOSE);
+	  	setDefaultCloseOperation(EXIT_ON_CLOSE);
 	  	setVisible(true);
 	}
 	

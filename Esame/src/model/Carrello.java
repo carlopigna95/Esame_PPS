@@ -60,7 +60,7 @@ public class Carrello {
 	public void setProdotti_Acquistati(Prodotto prodotti_Acquistati) {
 		Prodotti_Acquistati = prodotti_Acquistati;
 	}
-	public void aggungiProdotto(JTable table){
+	public void aggiungiProdotto(JTable table){
 		
 		 //LEGGE IL PRODOTTO
 		
@@ -68,23 +68,21 @@ public class Carrello {
 	    try{
 	         
 	    	 int row = table.getSelectedRow();
-		     String[] cella =  new String[table.getColumnCount()];
-		     
-			 for (int col=0;col<table.getColumnCount();col++){
-				 cella [col] = (String) table.getValueAt(row, col);
+		     Object[] cella =  new Object[table.getColumnCount()];
+			 for (int col=0;col<table.getColumnCount()-1;col++){
+				 cella [col] = table.getValueAt(row, col);
 			 } 
 		      
 			 //INTERAZIONE CON LA CLASSE PRODOTTO
 			 Prodotto p = new Prodotto();
 			 
-			 p.setNome_Prodotto((String) cella [0]);
-			 p.setCategoria((String) cella [1]);
-			 p.setDescrizione((String) cella [2]);
-			 p.setDisponibilita_Magazzino((Integer.parseInt((String) cella [3])));
-			 p.setPrezzo(Float.parseFloat(((String) cella [4])));
-			 p.setProduttore((String) cella [5]);
-			 
-			 int hashcode1 = p.hashCode();
+			     p.setNome_Prodotto((String) cella [0]);
+				 p.setCategoria((String) cella [1]);
+				 p.setDescrizione((String) cella [2]);
+				 p.setDisponibilita_Magazzino(Integer.parseInt((String) cella [3]));
+				 p.setPrezzo(Float.parseFloat((String) cella [4]));
+				 p.setProduttore((String) cella [5]);
+				
 			 //LEGGE LA QUANTITA AGGIUNTA AL CARRELLO
 			  Integer disponibilita = Integer.parseInt( table.getValueAt(row, 3).toString());  //prende il valore della colonna 4 ossia Disponibilita
 			  int value = disponibilita.intValue();
@@ -97,34 +95,44 @@ public class Carrello {
 				               }
 			        box.setEditable(false); 
 			 //DA LA POSSBILITA DI SCEGLIERE LA QUANTITA 
-			        //JOptionPane.showMessageDialog(null, box, "Seleziona la quantita", JOptionPane.QUESTION_MESSAGE);
+			       if(disponibilita == 0){JOptionPane.showMessageDialog(null, "Il prodotto è esaurito");}
+			       else{
 			        String [] options ={"OK"};
 			        int pannello = JOptionPane.showOptionDialog(null,box,"Selezionare la quantita",JOptionPane.NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
 				    if (pannello == 0){
+				    		int scelta = Integer.parseInt(box.getSelectedItem().toString());
 				    	
-				    
-			        int scelta = Integer.parseInt(box.getSelectedItem().toString());
 			 //SALVATAGGO DATI E CONTROLLO DOPPIONI IN BASE AL HASHCODE DEL PRODOTTO
 				    if(sessionCar.isEmpty()){
 				    	sessionCar.put(p, scelta);
 				                            }
 				    else
-				    {Set<Prodotto> keySet = sessionCar.keySet();
+				    {
+				       /*Set<Prodotto> keySet = sessionCar.keySet();
 					   Iterator<Prodotto> iterator = keySet.iterator();
 					   while(iterator.hasNext()){
 						   
 						   Prodotto key = iterator.next();
-						   int hashcode_elemento = key.hashCode();
-						   if (hashcode_elemento == hashcode1){
+						   if (p.getNome_Prodotto() == key.getNome_Prodotto()){
 							   sessionCar.remove(key);
 							   break;
 						   }
+						   }*/
+				    	for(Prodotto key : sessionCar.keySet()){	
+				    	if (p.getNome_Prodotto().equals(key.getNome_Prodotto())){
+							   sessionCar.remove(key);
+							   break;
+							  
 						   }
-						   sessionCar.put(p, scelta);
+				    	
+				    	}
+				    	sessionCar.put(p, scelta);
 					  };
-				    }
+				    
 				 }
-	    
+				    	
+				    	}
+			    }
 	    catch(ArrayIndexOutOfBoundsException e){
 	    	JOptionPane.showMessageDialog(null, "Selezionare un prodotto");
 	    }
@@ -157,33 +165,33 @@ public class Carrello {
 		   
 		   int row = table.getSelectedRow();
 		   dtm = (DefaultTableModel) table.getModel();
-		   String[] cella =  new String[table.getColumnCount()-1];
+		   Object[] cella =  new Object[table.getColumnCount()];
 		   for (int col=0;col<table.getColumnCount()-1;col++){
-				 cella [col] = (String) table.getValueAt(row, col);
+				 cella [col] = table.getValueAt(row, col);
 			 } 
 		   Prodotto p = new Prodotto();
-		     p.setNome_Prodotto((String) cella [0]);
+		   p.setNome_Prodotto((String) cella [0]);
 			 p.setCategoria((String) cella [1]);
 			 p.setDescrizione((String) cella [2]);
-			 p.setDisponibilita_Magazzino((Integer.parseInt((String) cella [3])));
-			 p.setPrezzo(Float.parseFloat(((String) cella [4])));
+			 p.setDisponibilita_Magazzino(Integer.parseInt((String) cella [3]));
+			 p.setPrezzo(Float.parseFloat((String) cella [4]));
 			 p.setProduttore((String) cella [5]);
-		   
-		   
-	       int hashcode_cella = p.hashCode(); //hashcode corrispondente alla riga selezionata String[]
 	       
-	       
-	       Set<Prodotto> keySet = sessionCar.keySet();
+	       /*Set<Prodotto> keySet = sessionCar.keySet();
 		   Iterator<Prodotto> iterator = keySet.iterator();
 		   while(iterator.hasNext()){
-			   
 			   Prodotto key = iterator.next(); 
-			   int hashcode_elemento = key.hashCode();
-			   if (hashcode_elemento == hashcode_cella){
+			  
+			   if (p.getNome_Prodotto() == key.getNome_Prodotto()){
 				   sessionCar.remove(key);
 			   }
-		   }
-		   
+		   }*/
+			 for(Prodotto key : sessionCar.keySet()){
+				 if (p.getNome_Prodotto().equals(key.getNome_Prodotto())){
+					   sessionCar.remove(key);
+					   break;
+				   }
+			 }
 		   
 		   dtm.removeRow(row);
 	      
@@ -199,7 +207,7 @@ public class Carrello {
 	  int risposta = JOptionPane.showOptionDialog(null,"Opzioni di modifica:", "Modifica quantità",
               JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
               null, opzioni, null);
-
+      
 	  //AGGIUNGE UN PRODOTTO
 	  if (risposta == JOptionPane.YES_OPTION){
 		  int row = table.getSelectedRow(); //valore della riga
@@ -218,39 +226,41 @@ public class Carrello {
                     String [] options ={"OK"};
 			        int pannello = JOptionPane.showOptionDialog(null,box,"Seleziona la quantita",JOptionPane.NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
 				        if (pannello == 0){
-         		        //JOptionPane.showMessageDialog(null, box, "Seleziona la quantita", JOptionPane.QUESTION_MESSAGE);
          			    int nuova_quantita = Integer.parseInt(box.getSelectedItem().toString());
          			    int somma = nuova_quantita + vecchia_scelta;
          			    table.setValueAt(somma, row, 6);
         //AGGIORNAMENTO HASHMAP
-         			   String[] cella =  new String[table.getColumnCount()-1];
+         			   Object[] cella =  new Object[table.getColumnCount()];
          			   for (int col=0;col<table.getColumnCount()-1;col++){
-         					 cella [col] = (String) table.getValueAt(row, col);
+         					 cella [col] = table.getValueAt(row, col);
          				 } 
          			   Prodotto p = new Prodotto();
-         			     p.setNome_Prodotto((String) cella [0]);
-         				 p.setCategoria((String) cella [1]);
-         				 p.setDescrizione((String) cella [2]);
-         				 p.setDisponibilita_Magazzino((Integer.parseInt((String) cella [3])));
-         				 p.setPrezzo(Float.parseFloat(((String) cella [4])));
-         				 p.setProduttore((String) cella [5]);
-         			   
-         			   
-         		       int hashcode_cella = p.hashCode(); //hashcode corrispondente alla riga selezionata String[]
-         		       
-         		       
-         		       Set<Prodotto> keySet = sessionCar.keySet();
+         			  p.setNome_Prodotto((String) cella [0]);
+     				  p.setCategoria((String) cella [1]);
+     				  p.setDescrizione((String) cella [2]);
+     				  p.setDisponibilita_Magazzino(Integer.parseInt((String) cella [3]));
+     				  p.setPrezzo(Float.parseFloat((String) cella [4]));
+     				  p.setProduttore((String) cella [5]);
+     			 
+     				  for(Prodotto key : sessionCar.keySet()){
+     					 if (p.getNome_Prodotto().equals(key.getNome_Prodotto())){
+     						sessionCar.remove(key);
+      					   sessionCar.put(p, somma);
+      					   break;
+     					    }
+     					 }
+     				  
+         		      /* Set<Prodotto> keySet = sessionCar.keySet();
          			   Iterator<Prodotto> iterator = keySet.iterator();
          			   while(iterator.hasNext()){
          				   
          				   Prodotto key = iterator.next(); 
-         				   int hashcode_elemento = key.hashCode();
-         				   if (hashcode_elemento == hashcode_cella){
-         					   sessionCar.remove(key);
-         					   sessionCar.put(p, somma);
+         				 
+         				   if (p.getNome_Prodotto() == key.getNome_Prodotto()){
+         					   
          				   }
          			   }
-         			     
+         			    */
          			     }
 		  }
                   else JOptionPane.showMessageDialog(null, "Hai esaurito il prodotto");
@@ -263,12 +273,12 @@ public class Carrello {
 	  if (risposta == JOptionPane.NO_OPTION){
 		  int row = table.getSelectedRow();
 		  int vecchia_scelta = Integer.parseInt(table.getValueAt(row, 6).toString());
-		
-			
+		  if( vecchia_scelta == 1){JOptionPane.showMessageDialog(null, "Se vuoi rimuovere il prodotto clicca su 'Rimuovi'");}
+		  else{
 			//COMBOBOX creato in base alla disponibilità e la scelta effettuata nel catalogo
 			  
 			  JComboBox<Integer> box = new JComboBox<Integer>();
-				             for (int i=1;i<=vecchia_scelta;i++){
+				             for (int i=1;i<vecchia_scelta;i++){
 				            	       
 					                   box.addItem(i);
 					                   
@@ -288,38 +298,42 @@ public class Carrello {
 					    }
 					    table.setValueAt(somma, row, 6);
 					  //AGGIORNAMENTO HASHMAP
-	         			   String[] cella =  new String[table.getColumnCount()-1];
-	         			   for (int col=0;col<table.getColumnCount()-1;col++){
-	         					 cella [col] = (String) table.getValueAt(row, col);
+	         			   Object[] cella =  new Object[table.getColumnCount()];
+	         			   for (int col=0;col<table.getColumnCount();col++){
+	         					 cella [col] = table.getValueAt(row, col);
 	         				 } 
 	         			   Prodotto p = new Prodotto();
-	         			     p.setNome_Prodotto((String) cella [0]);
-	         				 p.setCategoria((String) cella [1]);
-	         				 p.setDescrizione((String) cella [2]);
-	         				 p.setDisponibilita_Magazzino((Integer.parseInt((String) cella [3])));
-	         				 p.setPrezzo(Float.parseFloat(((String) cella [4])));
-	         				 p.setProduttore((String) cella [5]);
-	         			   
-	         			   
-	         		       int hashcode_cella = p.hashCode(); //hashcode corrispondente alla riga selezionata String[]
-	         		       
-	         		       
-	         		       Set<Prodotto> keySet = sessionCar.keySet();
+	         			  p.setNome_Prodotto((String) cella [0]);
+	     				 p.setCategoria((String) cella [1]);
+	     				 p.setDescrizione((String) cella [2]);
+	     				 p.setDisponibilita_Magazzino(Integer.parseInt((String) cella [3]));
+	     				 p.setPrezzo(Float.parseFloat((String) cella [4]));
+	     				 p.setProduttore((String) cella [5]);
+	     			 
+	     			    for(Prodotto key : sessionCar.keySet()){
+	     			    	if (p.getNome_Prodotto().equals(key.getNome_Prodotto())){
+	         					   sessionCar.remove(key);
+	         					   sessionCar.put(p, somma);
+	         					  break;
+	         				   }
+	     			    }
+	         		      /* Set<Prodotto> keySet = sessionCar.keySet();
 	         			   Iterator<Prodotto> iterator = keySet.iterator();
 	         			   while(iterator.hasNext()){
 	         				   
 	         				   Prodotto key = iterator.next(); 
-	         				   int hashcode_elemento = key.hashCode();
-	         				   if (hashcode_elemento == hashcode_cella){
+	         				  
+	         				   if (p.getNome_Prodotto() == key.getNome_Prodotto()){
 	         					   sessionCar.remove(key);
 	         					   sessionCar.put(p, somma);
 	         				   }
-	         			   }
+	         			   }*/
 				   }
 				   
 				   catch(ArrayIndexOutOfBoundsException e){
 					   JOptionPane.showMessageDialog(null, "Hai eliminato il prodotto dal carrello");
 				   }
+	  }
 	  }
 	  }
 	  }catch(ArrayIndexOutOfBoundsException e){

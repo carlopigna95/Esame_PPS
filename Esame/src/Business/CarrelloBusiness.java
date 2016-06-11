@@ -15,10 +15,10 @@ public class CarrelloBusiness {
 		return instance;
 	}
 
-	public void aggiungiProdotto(JTable table,JTable table1){
+	public void aggiungiProdotto(JTable table){
 		
 		Carrello c = new Carrello();
-		c.aggungiProdotto(table);
+		c.aggiungiProdotto(table);
 	}
 	public void listaProdotti(){
 		Carrello c = new Carrello();

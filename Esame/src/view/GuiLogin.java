@@ -78,7 +78,7 @@ public class GuiLogin extends JFrame {
 			sud.setBorder(BorderFactory.createEmptyBorder(0,0,8,0));
 
 			
-			setDefaultCloseOperation(EXIT_ON_CLOSE);
+			setDefaultCloseOperation(HIDE_ON_CLOSE);
 			setSize(500,150);
 			setVisible(true);
 	 		
