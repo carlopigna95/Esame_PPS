@@ -39,10 +39,10 @@ public class Magazziniere extends UtenteRegistrato {
 		
 	}
 	
-	public void AggiuntaProdotto(){
+	public void RifornimentoProdotto(){
 		
 		MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
-		magazziniere.AggiungiProdotti(quantita_rifornita,codice_prodotto_rifornito);
+		magazziniere.RifornimentoProdotto(quantita_rifornita,codice_prodotto_rifornito);
 		
 	}
 	
@@ -58,11 +58,11 @@ public class Magazziniere extends UtenteRegistrato {
 	public Vector<String[]> TableRichiestePendenti(){
 	
 	MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
-	return magazziniere.TableRichiestePendenti();
+	return magazziniere.ListaRichiestePendenti();
 }
 	
 //table per la finestra a parte delle dettaglio ordine pendente
-	public Vector<String[]> DettaglioRichiestePendenti(int codOrdine){
+	public Vector<String[]> ListaRichiestePendenti(int codOrdine){
 	MagazziniereDAO magazziniere = MagazziniereDAO.getInstance();
 	return magazziniere.DettaglioRichiestePendenti(codOrdine);
 	}

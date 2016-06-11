@@ -51,14 +51,14 @@ private static MagazziniereDAO instance;
 		return carenze;
 	}
 
-	public void AggiungiProdotti(int aggiunta,int codice_prodotto){
+	public void RifornimentoProdotto(int aggiunta,int codice_prodotto){
 		DbConnection con = DbConnection.getInstance();
 		Boolean aggiornamento = con.eseguiAggiornamento("update ProdottoInMagazzino set DisponibilitaInMagazzino"
 								+ "= DisponibilitaInMagazzino + "+aggiunta+" "
 								+ "where CodiceProdottoInMagazzino ="+codice_prodotto); 
 	}
 	
-	public Vector<String[]> TableRichiestePendenti(){
+	public Vector<String[]> ListaRichiestePendenti(){
 		DbConnection con = DbConnection.getInstance();
 		int codMagazzino =  MagazziniereBusiness.getInstance().CodMagazzino();
 		

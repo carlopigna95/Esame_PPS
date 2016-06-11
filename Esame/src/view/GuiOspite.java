@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import ActionListener.Ascoltatore;
+import Business.OspiteBusiness;
 import dao.OspiteDAO;
 
 
@@ -27,7 +28,7 @@ public class GuiOspite extends JFrame {
 	
   
 	private static final long serialVersionUID = 1L;
-	final OspiteDAO ospite = OspiteDAO.getInstance();
+	OspiteBusiness ospite = OspiteBusiness.getInstance();
 	Ascoltatore listener = new Ascoltatore(this);
 	Color BlueFacebook = new Color(59,89,152);
 	Color MediumBlueFacebook = new Color(109, 132, 180);

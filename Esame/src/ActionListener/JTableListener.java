@@ -77,7 +77,7 @@ public class JTableListener implements ActionListener {
 	 else  if (arg0.getActionCommand().equals("conferma")){
 		  Ordine.getInstance().confermaOrdine();
 		  OrdineDAO.getInstance().inserisciOrdine();
-		  DipendenteDAO.getInstance().aggiornaSpesa();
+		  DipendenteDAO.getInstance().aggiornaTotaleSpesa();
 		  ProgettoDAO.getInstance().aggionaSpesaProgetto();
 		  
 		  //STAMPA DISTINTA

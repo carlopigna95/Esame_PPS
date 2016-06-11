@@ -34,6 +34,7 @@ public int getCodiceMagazzino(int codice_prodotto){
 		   int codice_magazzino = Integer.parseInt(codice.get(0)[0]);
 		   return codice_magazzino;
 			 }
+
 public boolean inserisciOrdine(){
 	DbConnection con = new DbConnection();
 	Vector<Object[]> ordine_mag1 = Ordine.getInstance().ordine_magazzino.get("magazzino1");

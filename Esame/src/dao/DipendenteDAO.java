@@ -39,13 +39,6 @@ public class DipendenteDAO {
 		 return prodotto1;	 
 		 }	 
 	 
-	 public Vector<String[]> Disponibilita(){
-		 DbConnection con = DbConnection.getInstance();
-		 Vector<String[]> disponibilita= con.eseguiQuery("select DisponibilitaInMagazzino"
-		 		+ " from prodottoinmagazzino where idMagazzino = "+1);
-		 
-				return disponibilita;
-	 }
 
 	public Vector<String[]> GeneraCatalogo2(){  
 	 
@@ -61,7 +54,7 @@ public class DipendenteDAO {
 		return prodotto2;
 		 
 	 } 
-	public void aggiornaSpesa(){
+	public void aggiornaTotaleSpesa(){
 		
 		float spesa = Ordine.getInstance().spesaTotaleDipendente.get("spesa_totale_dipendente");
 		UtenteRegistrato u = Sessione.getInstance().session.get("utente_corrente");
