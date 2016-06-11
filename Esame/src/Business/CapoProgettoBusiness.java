@@ -18,14 +18,6 @@ public class CapoProgettoBusiness {
 	   	return instance;
 	   }
 	
-	
-	public String[] NomiProgetti(){
-		
-		CapoProgetto c = new CapoProgetto();
-		return c.NomiProgetti();
-		
-	}
-	
 	 public Vector<String[]> TotaleSpesaProgetto(){
 		 
 		 CapoProgetto cp = new CapoProgetto();

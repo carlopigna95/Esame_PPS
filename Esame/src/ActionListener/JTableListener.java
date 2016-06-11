@@ -1,4 +1,5 @@
-package ActionListener;
+
+	package ActionListener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,17 +13,11 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Business.CarrelloBusiness;
-import Business.DipendenteBusiness;
-import Business.OrdineBusiness;
-import Business.ProgettoBusiness;
 import dao.DipendenteDAO;
 import dao.OrdineDAO;
 import dao.ProgettoDAO;
 import model.Carrello;
-import model.Dipendente;
 import model.Ordine;
-import model.Progetto;
 import model.Sessione;
 import model.UtenteRegistrato;
 import view.GuiMagazziniere;
@@ -66,30 +61,25 @@ public class JTableListener implements ActionListener {
 	 if (arg0.getActionCommand().equals("aggiungi")){
 	 
 	 Carrello.getInstance().aggiungiProdotto(table);
-	 //Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-	}
+	 Vector<String[]> lista = Carrello.getInstance().listaProdotti();
+    }
 	 else  if (arg0.getActionCommand().equals("rimuovi")){
-	
+		 
 	 Carrello.getInstance().rimuoviProdotto(table, dtm);
-	 //Vector<String[]> lista = Carrello.getInstance().listaProdotti();
 	 
     }
 	 else if (arg0.getActionCommand().equals("modifica")){
 		 
 		Carrello.getInstance().modificaQuantita(table,dtm);
-    /*    Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-        for(int i=0;i<lista.size();i++){
-   		 for(int j=0;j<6;i++){
-   			 System.out.println(lista.get(i)[j]+"\n");
-   		 }
-   	 }
-		*/
+        Vector<String[]> lista = Carrello.getInstance().listaProdotti();
+		
+		 
 	 }
 	 else  if (arg0.getActionCommand().equals("conferma")){
 		  Ordine.getInstance().confermaOrdine();
-		  Ordine.getInstance().inserisciOrdine();
-		  DipendenteBusiness.getInstance().aggiornaSpesa();
-		  Progetto.getInstance().aggionaSpesaProgetto();
+		  OrdineDAO.getInstance().inserisciOrdine();
+		  DipendenteDAO.getInstance().aggiornaTotaleSpesa();
+		  ProgettoDAO.getInstance().aggionaSpesaProgetto();
 		  
 		  //STAMPA DISTINTA
 		  

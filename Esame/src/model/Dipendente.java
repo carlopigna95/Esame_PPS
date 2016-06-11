@@ -26,11 +26,9 @@ public void setCodice_Dipendente(Integer codice_Dipendente) {
  public Vector<String[]> GeneraCatalogo2(){
 	 return DipendenteDAO.getInstance().GeneraCatalogo2();
  }
- public Vector<String[]> Disponibilità(){
-	 return DipendenteDAO.getInstance().Disponibilita();
- }
-public void aggiornaSpesa(){
-	DipendenteDAO.getInstance().aggiornaSpesa();
+ 
+public void aggiornaTotaleSpesa(){
+	DipendenteDAO.getInstance().aggiornaTotaleSpesa();
 }
 
 }

@@ -22,13 +22,10 @@ public class DipendenteBusiness {
 		 Dipendente d = new Dipendente();
 		 return d.GeneraCatalogo2();
 	 }
-	 public Vector<String[]> Disponibilità(){
-		 Dipendente d = new Dipendente();
-		 return d.Disponibilità();
-	 }
-	public void aggiornaSpesa(){
+	
+	public void aggiornaTotaleSpesa(){
 		Dipendente d = new Dipendente();
-		d.aggiornaSpesa();
+		d.aggiornaTotaleSpesa();
 	}
 
 	

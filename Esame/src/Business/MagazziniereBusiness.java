@@ -24,10 +24,10 @@ public class MagazziniereBusiness {
 		 
 	}
 
-	public void AggiungiProdotti(int quantita, int codice_prodotto) {
+	public void RifornimentoProdotto(int quantita, int codice_prodotto) {
 		  
 		Magazziniere m = new Magazziniere(quantita, codice_prodotto);
-		m.AggiuntaProdotto();
+		m.RifornimentoProdotto();
 		
 	}
 	  
@@ -38,7 +38,7 @@ public class MagazziniereBusiness {
 		  return m.PocaDisponibilita();
 	  }
 
-	  public Vector<String[]> TableRichiestePendenti() {
+	  public Vector<String[]> ListaRichiestePendenti() {
 		  
 		  Magazziniere m = new Magazziniere();
 		  return m.TableRichiestePendenti();		  
@@ -46,7 +46,7 @@ public class MagazziniereBusiness {
 	  
 	  public Vector<String[]> DettaglioRichiestePendenti(int codOrdine){
 		  Magazziniere m = new Magazziniere();
-		  return m.DettaglioRichiestePendenti(codOrdine);
+		  return m.ListaRichiestePendenti(codOrdine);
 	  }
 	  public void EvadiOrdine(){
 		  Magazziniere m = new Magazziniere();

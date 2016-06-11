@@ -213,8 +213,8 @@ public class GuiMagazziniere extends JFrame {
 			mtm.setColumnIdentifiers(columnNames);
 			table.setModel(mtm);
 			JTableListenerMagazziniere lis = new JTableListenerMagazziniere(table);
-			for(int i=0;i<magazz_business.TableRichiestePendenti().size();i++){
-				mtm.addRow(magazz_business.TableRichiestePendenti().get(i));
+			for(int i=0;i<magazz_business.ListaRichiestePendenti().size();i++){
+				mtm.addRow(magazz_business.ListaRichiestePendenti().get(i));
 			}
 			table.setOpaque(true);
 			return table;

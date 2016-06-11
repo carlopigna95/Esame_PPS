@@ -40,32 +40,7 @@ public class UtenteRegistratoDAO {
         Sessione.getInstance().session.put("utente_corrente",u);
     	 return true;
 	}  
-   //ALGORITMO DI CONTROLLO RUOLO
-   /*public char Controllo_Ruolo(UtenteRegistrato u){
-	   String username = u.getUsername();
-	   String password = u.getPassword();
-	   String c_tmp = null;
-	   
-	   Vector <String[]> vettore_ruolo = DbConnection.getInstance().eseguiQuery("select ruolo from Utente_Registrato where "
-				+ "username=\""+username 
-				+"\" and password=\""+password+"\"");
-	   for(int i=0;i<vettore_ruolo.size();i++){
-		    c_tmp = vettore_ruolo.get(i)[0];}
-	   
-	
-	char ruolo = c_tmp.charAt(0);
-	   return ruolo;
-
-   }*/
-   /*public int get_IdUtente(String username){
-	    String id_tmp;
-	    DbConnection con = DbConnection.getInstance();
-	    Vector<String[]> idUtente = con.eseguiQuery("select idUtenteRegistrato from utente_registrato where username =\""+username+"\"");
-	    id_tmp = idUtente.get(0)[0];
-	    int id_utente = Integer.parseInt(id_tmp);
-	    return id_utente;
-	    }*/
-   }
+  }
  
    
 

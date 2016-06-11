@@ -12,6 +12,7 @@ import Business.ProdottoBusiness;
 import dao.MagazziniereDAO;
 import view.MyTableModel;
 
+//Listener di Magazziniere per il rifornimento dei prodotto con Poca Disponibilità
 public class MyTableListener implements TableModelListener{
 	
 	boolean isUpdatingTable=false;
@@ -54,7 +55,7 @@ public class MyTableListener implements TableModelListener{
 				//e di MagazziniereDAO per aumentare la disponibilità del prodotto selezionato
 					int quantita = Integer.parseInt(scelta);
 					int codice_prodotto = prodotto.CodiceProdotto(vettore1.get(e.getFirstRow())[0]);
-					magazz_business.AggiungiProdotti(quantita,codice_prodotto);
+					magazz_business.RifornimentoProdotto(quantita,codice_prodotto);
 					model.setValueAt(false, row, 6);
 				//Prende la disponibilità attuale dal DB. Non è possibile usare vettore1 perchè è il valore vecchio!
 					int vecchia_disp = Integer.parseInt(vettore1.get(row)[3]); 
