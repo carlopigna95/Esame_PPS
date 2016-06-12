@@ -69,7 +69,7 @@ public class Carrello {
 	         
 	    	 int row = table.getSelectedRow();
 		     Object[] cella =  new Object[table.getColumnCount()];
-			 for (int col=0;col<table.getColumnCount()-1;col++){
+			 for (int col=0;col<table.getColumnCount();col++){
 				 cella [col] = table.getValueAt(row, col);
 			 } 
 		      

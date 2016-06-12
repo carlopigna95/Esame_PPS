@@ -13,9 +13,8 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import dao.DipendenteDAO;
-import dao.OrdineDAO;
-import dao.ProgettoDAO;
+import Business.DipendenteBusiness;
+import Business.ProgettoBusiness;
 import model.Carrello;
 import model.Ordine;
 import model.Sessione;
@@ -77,9 +76,9 @@ public class JTableListener implements ActionListener {
 	 }
 	 else  if (arg0.getActionCommand().equals("conferma")){
 		  Ordine.getInstance().confermaOrdine();
-		  OrdineDAO.getInstance().inserisciOrdine();
-		  DipendenteDAO.getInstance().aggiornaTotaleSpesa();
-		  ProgettoDAO.getInstance().aggionaSpesaProgetto();
+		  Ordine.getInstance().inserisciOrdine();
+		  DipendenteBusiness.getInstance().aggiornaTotaleSpesa();
+		  ProgettoBusiness.getInstance().aggionaSpesaProgetto();
 		  
 		  //STAMPA DISTINTA
 		  

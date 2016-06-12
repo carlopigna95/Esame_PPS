@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import ActionListener.AscoltatoreCapoProgetto;
 import ActionListener.JTableListener;
@@ -20,8 +21,6 @@ import Business.CapoProgettoBusiness;;
 
 public class SpesaPerDipendente extends JFrame {
 	
-	AscoltatoreCapoProgetto listener = new AscoltatoreCapoProgetto(this);
-	AscoltatoreCapoProgetto listener2 = new AscoltatoreCapoProgetto(this,TableSpesaDipendente());
 	Color BlueFacebook = new Color(59,89,152);
 	Color MediumBlueFacebook = new Color(109, 132, 180);
 	
@@ -37,13 +36,42 @@ public class SpesaPerDipendente extends JFrame {
 		c.add(nord, BorderLayout.NORTH);
 		c.add(sud, BorderLayout.SOUTH);
 		
-		JScrollPane ScrollPaneTable = new JScrollPane(TableSpesaDipendente());
+		//--------CREAZIONE TABLE------------
+		DefaultTableModel dtm = new DefaultTableModel(0,0){
+			public boolean isCellEditable(int row,int column){
+				return false;
+				}
+		};
+		final JTable table = new JTable(){
+			public Dimension getPreferredScrollableViewportSize(){
+		  		return new Dimension(400,100);
+			}
+		};
+		table.setRowSelectionAllowed(true);
+		String columnNames[] = new String[] { "Nome", "Cognome", "Spesa Totale €"};
+		dtm.setColumnIdentifiers(columnNames);
+		table.setModel(dtm);
+		JTableListener lis = new JTableListener(table);
+		for(int i=0;i<CapoProgettoBusiness.getInstance().TotaleSpesaDipendente().size();i++){
+			dtm.addRow(CapoProgettoBusiness.getInstance().TotaleSpesaDipendente().get(i));
+			}
+		table.setSize(new Dimension(400,100));
+		table.getTableHeader().setReorderingAllowed(false);
+	  	table.setModel(dtm);
+	  	table.setRowHeight(30);
+	  	
+		//-------------------------------
+		
+		JScrollPane ScrollPaneTable = new JScrollPane(table);
+		
+		AscoltatoreCapoProgetto listener = new AscoltatoreCapoProgetto(this);
+		AscoltatoreCapoProgetto listener2 = new AscoltatoreCapoProgetto(this,table,dtm);
 
 		nord.add(ScrollPaneTable);
 		sud.setLayout(new GridLayout(1,2,5,5));	
 		sud.add(stampa);
 		stampa.addActionListener(listener2);
-		stampa.setActionCommand("stampa");
+		stampa.setActionCommand("stampa_dipendente");
 		sud.add(opzioni);
 		opzioni.addActionListener(listener);
 		opzioni.setActionCommand("ritorna_opzioni");
@@ -62,31 +90,14 @@ public class SpesaPerDipendente extends JFrame {
 		
 		
 		
+
 		
 		setVisible(true);
 		setSize(500, 300);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}
 		
-		
-		public JTable TableSpesaDipendente(){
-			MyTableModel mtm = new MyTableModel();
-			final JTable table = new JTable(){
-				public Dimension getPreferredScrollableViewportSize(){
-			  		return new Dimension(400,100);
-				}
-			};
-			table.setRowSelectionAllowed(true);
-			String columnNames[] = new String[] { "Nome", "Cognome", "Spesa Totale €"};
-			mtm.setColumnIdentifiers(columnNames);
-			table.setModel(mtm);
-			JTableListener lis = new JTableListener(table);
-			for(int i=0;i<CapoProgettoBusiness.getInstance().TotaleSpesaDipendente().size();i++){
-				mtm.addRow(CapoProgettoBusiness.getInstance().TotaleSpesaDipendente().get(i));
-				}
-			table.setSize(new Dimension(400,100));
-		  	return table;
-		}
+
 		
 }
 

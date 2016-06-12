@@ -1,29 +1,19 @@
 package ActionListener;
 
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.print.PageFormat;
 import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.OrientationRequested;
-import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
-import javax.swing.JTable.PrintMode;
+import javax.swing.table.DefaultTableModel;
 
-import model.CapoProgetto;
 import model.Sessione;
+import model.UtenteRegistrato;
 import view.GuiCapoProgetto;
 import view.SpesaPerDipendente;
 import view.SpesaPerProgetto;
@@ -32,6 +22,7 @@ import view.SpesaPerProgetto;
 public class AscoltatoreCapoProgetto implements ActionListener{
 	JFrame finestra = new JFrame();
 	JTable table = new JTable();
+	DefaultTableModel dtm = new DefaultTableModel();
 	
 	
 	
@@ -42,19 +33,43 @@ public class AscoltatoreCapoProgetto implements ActionListener{
 	public AscoltatoreCapoProgetto(JFrame finestra, JTable table){
 		this.finestra = finestra;
 		this.table = table;
+		
+	}
+	public AscoltatoreCapoProgetto(JFrame finestra, JTable table, DefaultTableModel dtm){
+		this.finestra = finestra;
+		this.table = table;
+		this.dtm = dtm;
 	}
 	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {		
 		
-		if(arg0.getActionCommand().equals("stampa")){
+		if(arg0.getActionCommand().equals("stampa_progetto")){
 
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
 			String data = dateFormat.format(date);
+			UtenteRegistrato utente = Sessione.getInstance().session.get("utente_corrente");
 			MessageFormat up = new MessageFormat("Rapporto spesa per progetto");	
-			MessageFormat down = new MessageFormat(data);
+			MessageFormat down = new MessageFormat(utente.getNome()+" "+utente.getCognome()+" - "+data);
+			
+			try {
+				table.print(JTable.PrintMode.FIT_WIDTH, up,down);
+			} catch (PrinterException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		
+		if(arg0.getActionCommand().equals("stampa_dipendente")){
+
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Date date = new Date();
+			String data = dateFormat.format(date);
+			UtenteRegistrato utente = Sessione.getInstance().session.get("utente_corrente");
+			MessageFormat up = new MessageFormat("Rapporto spesa per dipendente");	
+			MessageFormat down = new MessageFormat(utente.getNome()+" "+utente.getCognome()+" - "+data);
 			
 			try {
 				table.print(JTable.PrintMode.FIT_WIDTH, up,down);

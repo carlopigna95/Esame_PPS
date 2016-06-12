@@ -86,6 +86,8 @@ public class GuiCarrello extends JFrame {
 			disponibilità = Integer.parseInt(lista.get(i)[6]);
 			prezzoReale = prezzo*disponibilità;
 			//per troncare il double alla seconda cifra decimale
+			prezzoReale = Math.floor(prezzoReale*100);
+			prezzoReale = prezzoReale/100;
 			SpesaTotale = SpesaTotale + prezzoReale; 
 			SpesaTotale = Math.floor(SpesaTotale*100);
 			SpesaTotale = SpesaTotale/100;

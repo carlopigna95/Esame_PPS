@@ -21,8 +21,6 @@ import Business.CapoProgettoBusiness;
 
 public class SpesaPerProgetto extends JFrame {
 	
-	AscoltatoreCapoProgetto listener = new AscoltatoreCapoProgetto(this);
-	AscoltatoreCapoProgetto listener2 = new AscoltatoreCapoProgetto(this,TableSpesaProgetto());
 	Color BlueFacebook = new Color(59,89,152);
 	Color MediumBlueFacebook = new Color(109, 132, 180);
 	
@@ -35,18 +33,46 @@ public class SpesaPerProgetto extends JFrame {
 		JButton opzioni = new JButton("Torna alle opzioni");
 		JButton stampa = new JButton("Stampa");
 		
+		//-----CREAZIONE JTABLE----------
+		DefaultTableModel dtm = new DefaultTableModel(0,0){
+			private static final long serialVersionUID = 1L;
+			@Override 
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+			JTable table = new JTable(){
+			public Dimension getPreferredScrollableViewportSize(){
+		  		return new Dimension(400,100);
+			}
+			};
+	
+		String columnNames[] = new String[] { "Nome Progetto","Spesa Totale €"};
+		dtm.setColumnIdentifiers(columnNames);
+		table.setModel(dtm);
+		JTableListener lis = new JTableListener(table);
+		for(int i=0;i<CapoProgettoBusiness.getInstance().TotaleSpesaProgetto().size();i++){
+			dtm.addRow(CapoProgettoBusiness.getInstance().TotaleSpesaProgetto().get(i));
+			}
+		table.setSize(new Dimension(400,100));
+		table.getTableHeader().setReorderingAllowed(false);
+	  	table.setModel(dtm);
+	  	table.setRowHeight(30);
+	  	//---------------------------------------------
 		
 		c.setLayout(new BorderLayout());
 		c.add(nord, BorderLayout.NORTH);
-		JScrollPane scrollPane = new JScrollPane(TableSpesaProgetto());
+		JScrollPane scrollPane = new JScrollPane(table);
 		
-
+		AscoltatoreCapoProgetto listener = new AscoltatoreCapoProgetto(this);
+		AscoltatoreCapoProgetto listener2 = new AscoltatoreCapoProgetto(this,table,dtm);
+		
 		nord.add(scrollPane);
 		c.add(sud, BorderLayout.SOUTH);
 		sud.setLayout(new GridLayout(1,2,5,5));
 		sud.add(stampa);
 		stampa.addActionListener(listener2);
-		stampa.setActionCommand("stampa");
+		stampa.setActionCommand("stampa_progetto");
 		sud.add(opzioni);
 		opzioni.addActionListener(listener);
 		opzioni.setActionCommand("ritorna_opzioni");
@@ -75,33 +101,6 @@ public class SpesaPerProgetto extends JFrame {
 		
 	}
 	
-	public JTable TableSpesaProgetto(){
-		DefaultTableModel dtm = new DefaultTableModel(0,0){private static final long serialVersionUID = 1L;
-
-			@Override 
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-			JTable table = new JTable(){
-			public Dimension getPreferredScrollableViewportSize(){
-		  		return new Dimension(400,100);
-			}
-			};
 	
-		String columnNames[] = new String[] { "Nome Progetto","Spesa Totale €"};
-		dtm.setColumnIdentifiers(columnNames);
-		table.setModel(dtm);
-		JTableListener lis = new JTableListener(table);
-		for(int i=0;i<CapoProgettoBusiness.getInstance().TotaleSpesaProgetto().size();i++){
-			dtm.addRow(CapoProgettoBusiness.getInstance().TotaleSpesaProgetto().get(i));
-			}
-		table.setSize(new Dimension(400,100));
-		table.getTableHeader().setReorderingAllowed(false);
-	  	table.setModel(dtm);
-	  	table.setRowHeight(30);
-	  	return table;
-	}
-
 }
 	
