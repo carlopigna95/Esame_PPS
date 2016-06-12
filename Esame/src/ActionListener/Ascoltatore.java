@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import Business.UtenteRegistratoBusiness;
 import dao.UtenteRegistratoDAO;
+import model.Carrello;
 import model.Sessione;
 import model.UtenteRegistrato;
 import view.GuiOspite;
@@ -45,6 +46,7 @@ public class Ascoltatore implements ActionListener{
 	
 		else if(arg0.getActionCommand().equals("logout")){
 			Sessione.getInstance().session.remove("utente_corrente");
+			Carrello.getInstance().sessionCar.clear();
 			GuiLogin app = new GuiLogin();
 			finestra.setVisible(false);
 			

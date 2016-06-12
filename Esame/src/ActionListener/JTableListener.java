@@ -13,6 +13,8 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Business.DipendenteBusiness;
+import Business.ProgettoBusiness;
 import dao.DipendenteDAO;
 import dao.OrdineDAO;
 import dao.ProgettoDAO;
@@ -62,6 +64,11 @@ public class JTableListener implements ActionListener {
 	 
 	 Carrello.getInstance().aggiungiProdotto(table);
 	 Vector<String[]> lista = Carrello.getInstance().listaProdotti();
+	 for(int i=0;i<lista.size();i++){
+		 for (int j=0;j<8;j++){
+			 System.out.println(lista.get(i)[j]);
+		 }
+	 }
     }
 	 else  if (arg0.getActionCommand().equals("rimuovi")){
 		 
@@ -72,14 +79,18 @@ public class JTableListener implements ActionListener {
 		 
 		Carrello.getInstance().modificaQuantita(table,dtm);
         Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-		
+        for(int i=0;i<lista.size();i++){
+   		 for (int j=0;j<8;j++){
+   			 System.out.println(lista.get(i)[j]);
+   		 }
+   	 }
 		 
 	 }
 	 else  if (arg0.getActionCommand().equals("conferma")){
 		  Ordine.getInstance().confermaOrdine();
-		  OrdineDAO.getInstance().inserisciOrdine();
-		  DipendenteDAO.getInstance().aggiornaTotaleSpesa();
-		  ProgettoDAO.getInstance().aggionaSpesaProgetto();
+		  Ordine.getInstance().inserisciOrdine();
+		  DipendenteBusiness.getInstance().aggiornaTotaleSpesa();
+		  ProgettoBusiness.getInstance().aggionaSpesaProgetto();
 		  
 		  //STAMPA DISTINTA
 		  

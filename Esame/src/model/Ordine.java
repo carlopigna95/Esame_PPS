@@ -69,20 +69,23 @@ public class Ordine {
     			   Iterator<Prodotto> iterator = keySet.iterator();
     			   Vector<Object[]> lista_ordine1 = new Vector<Object[]>();
     			   Vector<Object[]> lista_ordine2 = new Vector<Object[]>();
-    			   Vector<Prodotto> lista_prodotti = new Vector<Prodotto>(); 
-    			  
+    			   Vector<Integer[]> lista_prodotti = new Vector<Integer[]>();
     		       float spesa_totale1 = 0;
     		       Object [] ordine1 = new Object[4];
                    Object [] ordine2 = new Object[4];
     		
     			   while(iterator.hasNext()){		   
     			Prodotto key = iterator.next();
-    			lista_prodotti.addElement(key);
+    			
     			int codice_prodotto = key.codiceProdotto();
     			int codice_magazzino = OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
     			int quantità = Carrello.getInstance().sessionCar.get(key);
     	        float prezzo = key.getPrezzo() * quantità;
     	        
+    	        Integer [] info_prodotti = new Integer[2];
+    			info_prodotti [0] = key.getCodice_Prodotto();
+    			info_prodotti [1] = quantità;
+    			lista_prodotti.addElement(info_prodotti);
     	        
     		    switch (codice_magazzino){
     		    case 1 : 
@@ -108,6 +111,8 @@ public class Ordine {
     		}      
     			   float spesa_ordine_misto = spesa_totale1 + spesa_totale2;
     			   spesa_progetto[1] = spesa_ordine_misto;
+    			   spesa_progetto[2] = nome_progetto;
+    			   prodotti.put("prodotti_ordinati",lista_prodotti);
     			   spesaTotaleProgetto.put("spesa_totale_progetto", spesa_progetto);
     			   spesaTotaleDipendente.put("spesa_totale_dipendente",spesa_ordine_misto);
     			   lista_ordine1.add(ordine1);
