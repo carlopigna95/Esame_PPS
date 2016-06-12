@@ -50,7 +50,9 @@ public class Ordine {
     public void confermaOrdine(){
     	if (Carrello.getInstance().sessionCar.isEmpty()){
     		JOptionPane.showMessageDialog(null, "Non ci sono prodotti nel carrello");
-    	}else{
+    	}
+    	
+    	else{
             Object [] spesa_progetto = new Object[2];
      		Vector<String[]> progetti = OrdineBusiness.getInstance().getProgetto();
         	JComboBox<String> box = new JComboBox<String>();

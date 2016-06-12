@@ -1,6 +1,8 @@
 
 	package ActionListener;
 
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
@@ -11,30 +13,24 @@ import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
-import Business.DipendenteBusiness;
-import Business.ProgettoBusiness;
-import Business.DipendenteBusiness;
-import Business.ProgettoBusiness;
-import Business.DipendenteBusiness;
-import Business.ProgettoBusiness;
-import Business.DipendenteBusiness;
-import Business.ProgettoBusiness;
 import Business.DipendenteBusiness;
 import Business.ProgettoBusiness;
 import model.Carrello;
 import model.Ordine;
 import model.Sessione;
 import model.UtenteRegistrato;
-import view.GuiMagazziniere;
+import view.GuiCarrello;
 
 
 public class JTableListener implements ActionListener {
      JTable table = new JTable();
      DefaultTableModel dtm = new DefaultTableModel();
-     GuiMagazziniere magFinestra;
      double SpesaTotale = 0;
+     GuiCarrello win;
+     
     
      
     public JTableListener() {}
@@ -55,6 +51,12 @@ public class JTableListener implements ActionListener {
 		this.dtm = dtm;
 	}
 	
+	public JTableListener(JTable table,GuiCarrello win){
+		this.table = table;
+		this.win = win;
+		
+	}
+	
 	//Per la stampa
 	public JTableListener(DefaultTableModel dtm,JTable table, double SpesaTotale) {
 		super();
@@ -68,12 +70,7 @@ public class JTableListener implements ActionListener {
 	 if (arg0.getActionCommand().equals("aggiungi")){
 	 
 	 Carrello.getInstance().aggiungiProdotto(table);
-	 Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-	 for(int i=0;i<lista.size();i++){
-		 for (int j=0;j<8;j++){
-			 System.out.println(lista.get(i)[j]);
-		 }
-	 }
+	 
     }
 	 else  if (arg0.getActionCommand().equals("rimuovi")){
 		 
@@ -83,14 +80,11 @@ public class JTableListener implements ActionListener {
 	 else if (arg0.getActionCommand().equals("modifica")){
 		 
 		Carrello.getInstance().modificaQuantita(table,dtm);
-        Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-        for(int i=0;i<lista.size();i++){
-   		 for (int j=0;j<8;j++){
-   			 System.out.println(lista.get(i)[j]);
-   		 }
-   	 }
-		 
+		
+		    
+        
 	 }
+	 
 	 else  if (arg0.getActionCommand().equals("conferma")){
 		  Ordine.getInstance().confermaOrdine();
 		  Ordine.getInstance().inserisciOrdine();

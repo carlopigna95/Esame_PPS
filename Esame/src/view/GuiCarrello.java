@@ -68,14 +68,12 @@ public class GuiCarrello extends JFrame {
 	    
 		
 		Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-		double prezzoReale;
 		double SpesaTotale = 0;
 		
+		//Aggiornamento della spesa totale
 		for (int i=0;i<lista.size();i++){
 			dtm.addRow(lista.get(i));
 			
-			//Aggiornamento del prezzo 
-		    
 			float prezzoTotale = Float.parseFloat(lista.get(i)[7]);
 			
 			SpesaTotale = SpesaTotale + prezzoTotale; 
@@ -86,6 +84,8 @@ public class GuiCarrello extends JFrame {
 		JLabel SpesaTot = new JLabel("Totale: € "+SpesaTotale);
 		
 		JTableListener listStampa = new JTableListener(dtm,table,SpesaTotale);
+		
+		
 
 		//LISTENER
 		conferma.addActionListener(listStampa);
@@ -93,11 +93,12 @@ public class GuiCarrello extends JFrame {
 		catalogo.addActionListener(lis);
 		catalogo.setActionCommand("catalogo");
 		JTableListener lisRimuovi = new JTableListener(dtm,table);
-		JTableListener lisModifica = new JTableListener(table);
+		JTableListener lisModifica = new JTableListener(table,this);
 		rimuovi.addActionListener(lisRimuovi);
 		rimuovi.setActionCommand("rimuovi");
 		modifica.addActionListener(lisModifica);
 		modifica.setActionCommand("modifica");
+		
 		
 		
        
