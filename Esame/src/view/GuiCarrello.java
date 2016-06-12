@@ -34,10 +34,7 @@ public class GuiCarrello extends JFrame {
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
 		AscoltatoreDipendente lis = new AscoltatoreDipendente(this);
-
-		
-		
-		
+        
 		//OBJECT
 		
 		JLabel avviso = new JLabel();
@@ -45,9 +42,6 @@ public class GuiCarrello extends JFrame {
 		JButton modifica = new JButton("Modifica quantità");
 		JButton conferma = new JButton("Conferma Ordine");
 		JButton catalogo = new JButton("Torna al Catalogo");
-		
-		
-		
 		
 	  	//DTM E JTABLE
 		
@@ -69,30 +63,24 @@ public class GuiCarrello extends JFrame {
 		
 		//DATI JTABLE	
 		String columnNames1[] = new String[] { "Nome", "Categoria", "Descrizione","Disponibilita "
-					,"Prezzo","Produttore","Quantità selezionata"};
+					,"Prezzo","Produttore","Quantità selezionata","Totale"};
 		dtm.setColumnIdentifiers(columnNames1);
 	    
 		
 		Vector<String[]> lista = Carrello.getInstance().listaProdotti();
 		double prezzoReale;
-		double prezzo;
-		int disponibilità;
 		double SpesaTotale = 0;
 		
 		for (int i=0;i<lista.size();i++){
 			dtm.addRow(lista.get(i));
+			
 			//Aggiornamento del prezzo 
-			prezzo = Double.parseDouble(lista.get(i)[4]);
-			disponibilità = Integer.parseInt(lista.get(i)[6]);
-			prezzoReale = prezzo*disponibilità;
-			//per troncare il double alla seconda cifra decimale
-			prezzoReale = Math.floor(prezzoReale*100);
-			prezzoReale = prezzoReale/100;
-			SpesaTotale = SpesaTotale + prezzoReale; 
+		    
+			float prezzoTotale = Float.parseFloat(lista.get(i)[7]);
+			
+			SpesaTotale = SpesaTotale + prezzoTotale; 
 			SpesaTotale = Math.floor(SpesaTotale*100);
-			SpesaTotale = SpesaTotale/100;
-			String PrezzoString = Double.toString(prezzoReale);
-			dtm.setValueAt(PrezzoString,i,4);
+			SpesaTotale = SpesaTotale/100; 
 			
 		}
 		JLabel SpesaTot = new JLabel("Totale: € "+SpesaTotale);

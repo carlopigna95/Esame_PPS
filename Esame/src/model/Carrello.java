@@ -73,15 +73,7 @@ public class Carrello {
 				 cella [col] = table.getValueAt(row, col);
 			 } 
 		      
-			 //INTERAZIONE CON LA CLASSE PRODOTTO
-			 Prodotto p = new Prodotto();
 			 
-			     p.setNome_Prodotto((String) cella [0]);
-				 p.setCategoria((String) cella [1]);
-				 p.setDescrizione((String) cella [2]);
-				 p.setDisponibilita_Magazzino(Integer.parseInt((String) cella [3]));
-				 p.setPrezzo(Float.parseFloat((String) cella [4]));
-				 p.setProduttore((String) cella [5]);
 				
 			 //LEGGE LA QUANTITA AGGIUNTA AL CARRELLO
 			  Integer disponibilita = Integer.parseInt( table.getValueAt(row, 3).toString());  //prende il valore della colonna 4 ossia Disponibilita
@@ -102,6 +94,17 @@ public class Carrello {
 				    if (pannello == 0){
 				    		int scelta = Integer.parseInt(box.getSelectedItem().toString());
 				    	
+				    		//INTERAZIONE CON LA CLASSE PRODOTTO
+							 Prodotto p = new Prodotto();
+							 
+							     p.setNome_Prodotto((String) cella [0]);
+								 p.setCategoria((String) cella [1]);
+								 p.setDescrizione((String) cella [2]);
+								 p.setDisponibilita_Magazzino(Integer.parseInt((String) cella [3]));
+								 p.setPrezzo(Float.parseFloat((String) cella [4]));
+								 p.setProduttore((String) cella [5]);
+								 float prezzoTotale = p.getPrezzo()*scelta;
+								 p.setPrezzoTotale(prezzoTotale);
 			 //SALVATAGGO DATI E CONTROLLO DOPPIONI IN BASE AL HASHCODE DEL PRODOTTO
 				    if(sessionCar.isEmpty()){
 				    	sessionCar.put(p, scelta);
@@ -145,7 +148,7 @@ public class Carrello {
 	   
 	   while(iterator.hasNext()){
 		   Prodotto key = iterator.next();   
-		   String[] elemento = new String[7];
+		   String[] elemento = new String[8];
 		   elemento[0] = key.getNome_Prodotto();
 		   elemento[1] = key.getCategoria();
 		   elemento[2] = key.getDescrizione();
@@ -153,6 +156,7 @@ public class Carrello {
 		   elemento[4] = Float.toString(key.getPrezzo());
 		   elemento[5] = key.getProduttore();
 		   elemento[6] = Integer.toString(sessionCar.get(key));
+		   elemento[7] = Float.toString(key.getPrezzoTotale());
 		   lista.addElement(elemento);
 	   }
 	        
@@ -166,18 +170,18 @@ public class Carrello {
 		   int row = table.getSelectedRow();
 		   dtm = (DefaultTableModel) table.getModel();
 		   Object[] cella =  new Object[table.getColumnCount()];
-		   for (int col=0;col<table.getColumnCount()-1;col++){
+		   for (int col=0;col<table.getColumnCount();col++){
 				 cella [col] = table.getValueAt(row, col);
 			 } 
 		   Prodotto p = new Prodotto();
-		   p.setNome_Prodotto((String) cella [0]);
+		     p.setNome_Prodotto((String) cella [0]);
 			 p.setCategoria((String) cella [1]);
 			 p.setDescrizione((String) cella [2]);
 			 p.setDisponibilita_Magazzino(Integer.parseInt((String) cella [3]));
 			 p.setPrezzo(Float.parseFloat((String) cella [4]));
 			 p.setProduttore((String) cella [5]);
-	       
-	       /*Set<Prodotto> keySet = sessionCar.keySet();
+	         
+	       Set<Prodotto> keySet = sessionCar.keySet();
 		   Iterator<Prodotto> iterator = keySet.iterator();
 		   while(iterator.hasNext()){
 			   Prodotto key = iterator.next(); 
@@ -185,7 +189,7 @@ public class Carrello {
 			   if (p.getNome_Prodotto() == key.getNome_Prodotto()){
 				   sessionCar.remove(key);
 			   }
-		   }*/
+		   }
 			 for(Prodotto key : sessionCar.keySet()){
 				 if (p.getNome_Prodotto().equals(key.getNome_Prodotto())){
 					   sessionCar.remove(key);
@@ -230,10 +234,10 @@ public class Carrello {
          			    int somma = nuova_quantita + vecchia_scelta;
          			    table.setValueAt(somma, row, 6);
         //AGGIORNAMENTO HASHMAP
-         			   Object[] cella =  new Object[table.getColumnCount()];
-         			   for (int col=0;col<table.getColumnCount()-1;col++){
+         			  Object[] cella =  new Object[table.getColumnCount()];
+         			   for (int col=0;col<table.getColumnCount();col++){
          					 cella [col] = table.getValueAt(row, col);
-         				 } 
+         				 }
          			   Prodotto p = new Prodotto();
          			  p.setNome_Prodotto((String) cella [0]);
      				  p.setCategoria((String) cella [1]);
@@ -241,7 +245,9 @@ public class Carrello {
      				  p.setDisponibilita_Magazzino(Integer.parseInt((String) cella [3]));
      				  p.setPrezzo(Float.parseFloat((String) cella [4]));
      				  p.setProduttore((String) cella [5]);
-     			 
+     				  float prezzoTotale = p.getPrezzo() * somma;
+     				  p.setPrezzoTotale(prezzoTotale);
+     				  
      				  for(Prodotto key : sessionCar.keySet()){
      					 if (p.getNome_Prodotto().equals(key.getNome_Prodotto())){
      						sessionCar.remove(key);
@@ -298,18 +304,19 @@ public class Carrello {
 					    }
 					    table.setValueAt(somma, row, 6);
 					  //AGGIORNAMENTO HASHMAP
-	         			   Object[] cella =  new Object[table.getColumnCount()];
+	         			  Object[] cella =  new Object[table.getColumnCount()];
 	         			   for (int col=0;col<table.getColumnCount();col++){
 	         					 cella [col] = table.getValueAt(row, col);
-	         				 } 
+	         				 }
 	         			   Prodotto p = new Prodotto();
-	         			  p.setNome_Prodotto((String) cella [0]);
+	         			 p.setNome_Prodotto((String) cella [0]);
 	     				 p.setCategoria((String) cella [1]);
 	     				 p.setDescrizione((String) cella [2]);
 	     				 p.setDisponibilita_Magazzino(Integer.parseInt((String) cella [3]));
 	     				 p.setPrezzo(Float.parseFloat((String) cella [4]));
 	     				 p.setProduttore((String) cella [5]);
-	     			 
+	     				 float prezzoTotale = p.getPrezzo() * somma;
+	     				  p.setPrezzoTotale(prezzoTotale);
 	     			    for(Prodotto key : sessionCar.keySet()){
 	     			    	if (p.getNome_Prodotto().equals(key.getNome_Prodotto())){
 	         					   sessionCar.remove(key);

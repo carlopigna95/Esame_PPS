@@ -15,6 +15,14 @@ import javax.swing.table.DefaultTableModel;
 
 import Business.DipendenteBusiness;
 import Business.ProgettoBusiness;
+import Business.DipendenteBusiness;
+import Business.ProgettoBusiness;
+import Business.DipendenteBusiness;
+import Business.ProgettoBusiness;
+import Business.DipendenteBusiness;
+import Business.ProgettoBusiness;
+import Business.DipendenteBusiness;
+import Business.ProgettoBusiness;
 import model.Carrello;
 import model.Ordine;
 import model.Sessione;
@@ -61,6 +69,11 @@ public class JTableListener implements ActionListener {
 	 
 	 Carrello.getInstance().aggiungiProdotto(table);
 	 Vector<String[]> lista = Carrello.getInstance().listaProdotti();
+	 for(int i=0;i<lista.size();i++){
+		 for (int j=0;j<8;j++){
+			 System.out.println(lista.get(i)[j]);
+		 }
+	 }
     }
 	 else  if (arg0.getActionCommand().equals("rimuovi")){
 		 
@@ -71,7 +84,11 @@ public class JTableListener implements ActionListener {
 		 
 		Carrello.getInstance().modificaQuantita(table,dtm);
         Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-		
+        for(int i=0;i<lista.size();i++){
+   		 for (int j=0;j<8;j++){
+   			 System.out.println(lista.get(i)[j]);
+   		 }
+   	 }
 		 
 	 }
 	 else  if (arg0.getActionCommand().equals("conferma")){

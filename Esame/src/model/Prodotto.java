@@ -11,7 +11,7 @@ public class Prodotto {
 	private float Prezzo;
 	private String Descrizione;
 	private String Produttore;
-	private int quantitaSelezionata;
+	private float PrezzoTotale;
 	public Prodotto(String Nome_Prodotto){
 		  this.Nome_Prodotto = Nome_Prodotto;
 		  
@@ -69,26 +69,11 @@ public class Prodotto {
 	
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((Categoria == null) ? 0 : Categoria.hashCode());
-		result = prime * result + Codice_Prodotto;
-		result = prime * result + ((Descrizione == null) ? 0 : Descrizione.hashCode());
-		result = prime * result + Disponibilita_Magazzino;
-		result = prime * result + ((Nome_Prodotto == null) ? 0 : Nome_Prodotto.hashCode());
-		result = prime * result + Float.floatToIntBits(Prezzo);
-		result = prime * result + ((Produttore == null) ? 0 : Produttore.hashCode());
-		result = prime * result + quantitaSelezionata;
-		return result;
+	public float getPrezzoTotale() {
+		return PrezzoTotale;
 	}
-	
-	public int getQuantitaSelezionata() {
-		return quantitaSelezionata;
-	}
-	public void setQuantitaSelezionata(int quantitaSelezionata) {
-		this.quantitaSelezionata = quantitaSelezionata;
+	public void setPrezzoTotale(float prezzoTotale) {
+		PrezzoTotale = prezzoTotale;
 	}
 	
 	       

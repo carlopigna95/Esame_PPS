@@ -79,6 +79,15 @@ public boolean inserisciOrdine(){
 	}
 	return true;
    }
+public boolean inserisciInfoOrdine(){
+	DbConnection con = new DbConnection();
+	for(Integer[] info : Ordine.getInstance().prodotti.get("prodotti_ordinati")){
+		int codice_prodotto = info[0];
+		int quantita = info[1];
+		
+	}
+	return true;
+}
   public boolean verificaNullVector(Vector<Object[]> vec){
 	  
 	  for(int i=0;i<vec.size();i++){
