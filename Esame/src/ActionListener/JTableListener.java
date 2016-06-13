@@ -128,12 +128,11 @@ public class JTableListener implements ActionListener {
 			
 	      Carrello.getInstance().svuotaCarrello_confermaOrdine(dtm);
 	      
-	     
 	   }
-	     else JOptionPane.showMessageDialog(null, "Non ci sono prodotti nel carrello");
+	 }
 	 }
 	}
-}
+
 		  
 
 	

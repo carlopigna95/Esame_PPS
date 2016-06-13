@@ -55,8 +55,6 @@ public class Ordine {
     		return false;
     	}
     	
-   
-  
     	else{
             Object [] spesa_progetto = new Object[2];
      		Vector<String[]> progetti = OrdineBusiness.getInstance().getProgetto();
@@ -68,11 +66,9 @@ public class Ordine {
             box.setEditable(false);
             String nome_progetto = (String) box.getSelectedItem();
         	String [] options ={"OK"};
-        	int pannello = JOptionPane.showOptionDialog(null,box,"Selezionare il progetto",JOptionPane.NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+        	int pannello = JOptionPane.showOptionDialog(null,box,"Selezionare il progetto",JOptionPane.YES_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
     	    if(pannello == 0){
-    	    	try{
-    	    	   //Set<Prodotto> keySet = Carrello.getInstance().sessionCar.keySet();
-    			   //Iterator<Prodotto> iterator = keySet.iterator();
+    	    	
     			   Vector<Object[]> lista_ordine1 = new Vector<Object[]>();
     			   Vector<Object[]> lista_ordine2 = new Vector<Object[]>();
     			   Vector<Integer[]> lista_prodotti = new Vector<Integer[]>();
@@ -80,9 +76,7 @@ public class Ordine {
     		       Object [] ordine1 = new Object[4];
                    Object [] ordine2 = new Object[4];
     		
-    			   //while(iterator.hasNext()){		   
-    			//Prodotto key = iterator.next();
-                   for(Prodotto key : Carrello.getInstance().sessionCar.keySet()){
+                 for(Prodotto key : Carrello.getInstance().sessionCar.keySet()){
     			int codice_prodotto = ProdottoDAO.getInstance().CodiceProdotto(key.getNome_Prodotto());
     			int codice_magazzino = OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
     			int quantità = Carrello.getInstance().sessionCar.get(key);
@@ -128,17 +122,13 @@ public class Ordine {
     	    
     	    
     	
-    	    }
-    	    	catch (NullPointerException e) {
-				// TODO: handle exception
-    			System.out.println("ceinv");
-    	    	}
+    	    }else return false;
 			
     	}
     		
 		return true;
     		}
-}
+
     public int getCodiceMagazzino(int codice_prodotto){
     	return OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
     }

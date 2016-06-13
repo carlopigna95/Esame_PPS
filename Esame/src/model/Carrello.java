@@ -80,8 +80,11 @@ public class Carrello {
 			 
 				
 			 //LEGGE LA QUANTITA AGGIUNTA AL CARRELLO
+			 
 			  Integer disponibilita = Integer.parseInt( table.getValueAt(row, 3).toString());  //prende il valore della colonna 4 ossia Disponibilita
 			  int value = disponibilita.intValue();
+			  
+			  
 			 //COMBOBOX
 			  JComboBox<Integer> box = new JComboBox<Integer>();
 				             for (int i=1;i<=value;i++){
@@ -115,16 +118,6 @@ public class Carrello {
 				                            }
 				    else
 				    {
-				       /*Set<Prodotto> keySet = sessionCar.keySet();
-					   Iterator<Prodotto> iterator = keySet.iterator();
-					   while(iterator.hasNext()){
-						   
-						   Prodotto key = iterator.next();
-						   if (p.getNome_Prodotto() == key.getNome_Prodotto()){
-							   sessionCar.remove(key);
-							   break;
-						   }
-						   }*/
 				    	for(Prodotto key : sessionCar.keySet()){	
 				    	if (p.getNome_Prodotto().equals(key.getNome_Prodotto())){
 							   sessionCar.remove(key);
@@ -299,17 +292,6 @@ public class Carrello {
      					    }
      					 }
      				  
-         		      /* Set<Prodotto> keySet = sessionCar.keySet();
-         			   Iterator<Prodotto> iterator = keySet.iterator();
-         			   while(iterator.hasNext()){
-         				   
-         				   Prodotto key = iterator.next(); 
-         				 
-         				   if (p.getNome_Prodotto() == key.getNome_Prodotto()){
-         					   
-         				   }
-         			   }
-         			    */
          			     }
 		  }
                   else JOptionPane.showMessageDialog(null, "Hai esaurito il prodotto");
@@ -389,17 +371,6 @@ public class Carrello {
 	         					  break;
 	         				   }
 	     			    }
-	         		      /* Set<Prodotto> keySet = sessionCar.keySet();
-	         			   Iterator<Prodotto> iterator = keySet.iterator();
-	         			   while(iterator.hasNext()){
-	         				   
-	         				   Prodotto key = iterator.next(); 
-	         				  
-	         				   if (p.getNome_Prodotto() == key.getNome_Prodotto()){
-	         					   sessionCar.remove(key);
-	         					   sessionCar.put(p, somma);
-	         				   }
-	         			   }*/
 				   }
 				   
 				   catch(ArrayIndexOutOfBoundsException e){
