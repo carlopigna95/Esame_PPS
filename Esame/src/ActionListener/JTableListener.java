@@ -115,7 +115,7 @@ public class JTableListener implements ActionListener {
 			String data = dateFormat.format(date);
 			UtenteRegistrato utente = Sessione.getInstance().session.get("utente_corrente");
 			MessageFormat up = new MessageFormat("Distinta Ordine - "+data);
-			MessageFormat down = new MessageFormat("Ordine effettuato da: "+utente.getNome()+" "+utente.getCognome()+" - Spesa Totale = €"+SpesaTotale);
+			MessageFormat down = new MessageFormat("Ordine effettuato da: "+utente.getNome()+" "+utente.getCognome()+" - Spesa Totale = €"+Carrello.getInstance().getTotale_Spesa());
 			
 			
 			

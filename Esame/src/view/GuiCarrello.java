@@ -83,6 +83,7 @@ public class GuiCarrello extends JFrame {
 			SpesaTotale = SpesaTotale + prezzoTotale; 
 			SpesaTotale = Math.floor(SpesaTotale*100);
 			SpesaTotale = SpesaTotale/100;  
+			Carrello.getInstance().setTotale_Spesa(SpesaTotale);
 			
 		}
 		JLabel SpesaTot = new JLabel("Totale: € "+SpesaTotale);

@@ -392,10 +392,7 @@ public class Carrello {
 	  dtm.setRowCount(0);
   }
   
-  public void calcoloSpesa(double SpesaAttuale){
-	  
-	  
-  }
+  
   
 
 	  

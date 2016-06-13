@@ -57,7 +57,7 @@ public class SpesaPerProgetto extends JFrame {
 		table.setSize(new Dimension(400,100));
 		table.getTableHeader().setReorderingAllowed(false);
 	  	table.setModel(dtm);
-	  	table.setRowHeight(30);
+	  	table.setRowHeight(20);
 	  	//---------------------------------------------
 		
 		c.setLayout(new BorderLayout());
@@ -88,9 +88,6 @@ public class SpesaPerProgetto extends JFrame {
 		scrollPane.getViewport().setBackground(MediumBlueFacebook);
 		scrollPane.setBorder(new LineBorder(Color.BLACK,1));
 		
-
-		
-	
 		
 		setVisible(true);
 		setSize(500,300);

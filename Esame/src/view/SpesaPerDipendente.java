@@ -58,7 +58,7 @@ public class SpesaPerDipendente extends JFrame {
 		table.setSize(new Dimension(400,100));
 		table.getTableHeader().setReorderingAllowed(false);
 	  	table.setModel(dtm);
-	  	table.setRowHeight(30);
+	  	table.setRowHeight(20);
 	  	
 		//-------------------------------
 		
