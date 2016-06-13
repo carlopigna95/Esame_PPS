@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Business.OrdineBusiness;
 import dao.OrdineDAO;
+import dao.ProdottoDAO;
 import dao.ProgettoDAO;
 
 public class Ordine {
@@ -47,10 +48,11 @@ public class Ordine {
 		return ProgettoDAO.getInstance().getNomeProgetto();
 	}
 	
-    public void confermaOrdine(){
-    	if (Carrello.getInstance().sessionCar.isEmpty()){
-    		JOptionPane.showMessageDialog(null, "Non ci sono prodotti nel carrello");
-    	}else{
+    public boolean confermaOrdine(){
+    	
+    		if(Carrello.getInstance().sessionCar.isEmpty() == true){
+    			return false;
+    		}else{
             Object [] spesa_progetto = new Object[2];
      		Vector<String[]> progetti = OrdineBusiness.getInstance().getProgetto();
         	JComboBox<String> box = new JComboBox<String>();
@@ -60,13 +62,12 @@ public class Ordine {
               }
             box.setEditable(false);
             String nome_progetto = (String) box.getSelectedItem();
-            spesa_progetto[0] = nome_progetto;
         	String [] options ={"OK"};
         	int pannello = JOptionPane.showOptionDialog(null,box,"Selezionare il progetto",JOptionPane.NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
     	    if(pannello == 0){
-    	    	
-    	    	   Set<Prodotto> keySet = Carrello.getInstance().sessionCar.keySet();
-    			   Iterator<Prodotto> iterator = keySet.iterator();
+    	    	try{
+    	    	   //Set<Prodotto> keySet = Carrello.getInstance().sessionCar.keySet();
+    			   //Iterator<Prodotto> iterator = keySet.iterator();
     			   Vector<Object[]> lista_ordine1 = new Vector<Object[]>();
     			   Vector<Object[]> lista_ordine2 = new Vector<Object[]>();
     			   Vector<Integer[]> lista_prodotti = new Vector<Integer[]>();
@@ -74,16 +75,16 @@ public class Ordine {
     		       Object [] ordine1 = new Object[4];
                    Object [] ordine2 = new Object[4];
     		
-    			   while(iterator.hasNext()){		   
-    			Prodotto key = iterator.next();
-    			
-    			int codice_prodotto = key.codiceProdotto();
+    			   //while(iterator.hasNext()){		   
+    			//Prodotto key = iterator.next();
+                   for(Prodotto key : Carrello.getInstance().sessionCar.keySet()){
+    			int codice_prodotto = ProdottoDAO.getInstance().CodiceProdotto(key.getNome_Prodotto());
     			int codice_magazzino = OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
     			int quantità = Carrello.getInstance().sessionCar.get(key);
     	        float prezzo = key.getPrezzo() * quantità;
     	        
     	        Integer [] info_prodotti = new Integer[2];
-    			info_prodotti [0] = key.getCodice_Prodotto();
+    			info_prodotti [0] = codice_prodotto;
     			info_prodotti [1] = quantità;
     			lista_prodotti.addElement(info_prodotti);
     	        
@@ -111,7 +112,7 @@ public class Ordine {
     		}      
     			   float spesa_ordine_misto = spesa_totale1 + spesa_totale2;
     			   spesa_progetto[1] = spesa_ordine_misto;
-    			   spesa_progetto[2] = nome_progetto;
+    			   spesa_progetto[0] = nome_progetto;
     			   prodotti.put("prodotti_ordinati",lista_prodotti);
     			   spesaTotaleProgetto.put("spesa_totale_progetto", spesa_progetto);
     			   spesaTotaleDipendente.put("spesa_totale_dipendente",spesa_ordine_misto);
@@ -119,10 +120,15 @@ public class Ordine {
     			   lista_ordine2.add(ordine2);
     			   ordine_magazzino.put("magazzino1",lista_ordine1);  
     			   ordine_magazzino.put("magazzino2",lista_ordine2);
-    	    }
+    	    }catch (NullPointerException e) {
+				// TODO: handle exception
+    			System.out.println("ceinv");
+			}
     	}
-    	
-    }
+    		
+		return true;
+    		}
+}
     public int getCodiceMagazzino(int codice_prodotto){
     	return OrdineDAO.getInstance().getCodiceMagazzino(codice_prodotto);
     }

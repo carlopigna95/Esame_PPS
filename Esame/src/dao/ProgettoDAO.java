@@ -34,8 +34,8 @@ public class ProgettoDAO {
 	 public void aggionaSpesaProgetto(){
 	   DbConnection con = new DbConnection();
 	   Object [] info = Ordine.getInstance().spesaTotaleProgetto.get("spesa_totale_progetto");
-	   String nome_progetto = (String) info[0];
-	   Float spesa = (Float) info[1];
+	   String nome_progetto = info[0].toString();
+	   Float spesa = Float.parseFloat(info[1].toString());
 	   con.eseguiAggiornamento("update progetto set TotaleSpesaProg = TotaleSpesaProg +"+spesa+" WHERE NomeProgetto= \""+nome_progetto+"\"");
 	   
    }	

@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -63,12 +64,8 @@ public class JTableListener implements ActionListener {
 	 if (arg0.getActionCommand().equals("aggiungi")){
 	 
 	 Carrello.getInstance().aggiungiProdotto(table);
-	 Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-	 for(int i=0;i<lista.size();i++){
-		 for (int j=0;j<8;j++){
-			 System.out.println(lista.get(i)[j]);
-		 }
-	 }
+	 
+	 
     }
 	 else  if (arg0.getActionCommand().equals("rimuovi")){
 		 
@@ -78,46 +75,44 @@ public class JTableListener implements ActionListener {
 	 else if (arg0.getActionCommand().equals("modifica")){
 		 
 		Carrello.getInstance().modificaQuantita(table,dtm);
-        Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-        for(int i=0;i<lista.size();i++){
-   		 for (int j=0;j<8;j++){
-   			 System.out.println(lista.get(i)[j]);
-   		 }
-   	 }
+        
+        
 		 
 	 }
 	 else  if (arg0.getActionCommand().equals("conferma")){
-		  Ordine.getInstance().confermaOrdine();
-		  Ordine.getInstance().inserisciOrdine();
-		  DipendenteBusiness.getInstance().aggiornaTotaleSpesa();
-		  ProgettoBusiness.getInstance().aggionaSpesaProgetto();
 		  
-		  //STAMPA DISTINTA
-		  
-			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			Date date = new Date();
-			String data = dateFormat.format(date);
-			UtenteRegistrato utente = Sessione.getInstance().session.get("utente_corrente");
-			MessageFormat up = new MessageFormat("Distinta Ordine - "+data);
-			MessageFormat down = new MessageFormat("Ordine effettuato da: "+utente.getNome()+" "+utente.getCognome()+" - Spesa Totale = €"+SpesaTotale);
-			
-			
-			
-			try {
-				table.print(JTable.PrintMode.FIT_WIDTH, up,down);
-			} catch (PrinterException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			
-		  Carrello.getInstance().svuotaCarrello_confermaOrdine(dtm);
-		  
-		 
-		  
-		  
-		}
+			  boolean ris = Ordine.getInstance().confermaOrdine();
+			  if (ris == true){
+				  Ordine.getInstance().inserisciOrdine();
+				  DipendenteBusiness.getInstance().aggiornaTotaleSpesa();
+				  ProgettoBusiness.getInstance().aggionaSpesaProgetto();
+				  
+				  //STAMPA DISTINTA
+				  
+					DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					Date date = new Date();
+					String data = dateFormat.format(date);
+					UtenteRegistrato utente = Sessione.getInstance().session.get("utente_corrente");
+					MessageFormat up = new MessageFormat("Distinta Ordine - "+data);
+					MessageFormat down = new MessageFormat("Ordine effettuato da: "+utente.getNome()+" "+utente.getCognome()+" - Spesa Totale = €"+SpesaTotale);
+					
+					
+					
+					try {
+						table.print(JTable.PrintMode.FIT_WIDTH, up,down);
+					} catch (PrinterException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+					
+				  Carrello.getInstance().svuotaCarrello_confermaOrdine(dtm);
+				  
+				 
+			}
+			  else JOptionPane.showMessageDialog(null, "Non ci sono prodotti nel carrello");
 
-
+			  }
+			 
 	
 	}
 }
