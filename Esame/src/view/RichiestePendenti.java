@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,6 +25,7 @@ public class RichiestePendenti extends JFrame {
 	AscoltatoreMagazziniere listenerMagazz = new AscoltatoreMagazziniere(this);
 	Color BlueFacebook = new Color(59,89,152);
 	Color MediumBlueFacebook = new Color(109, 132, 180);
+	private double Spesa_Totale = 0;
 	
 	public RichiestePendenti(int codOrdine){
 		super("Dettaglio Ordine");
@@ -32,8 +34,10 @@ public class RichiestePendenti extends JFrame {
 		JButton esci = new JButton("Torna agli ordini");
 		JPanel nord = new JPanel();
 		JPanel sud = new JPanel();
+		JPanel centro = new JPanel();
 		c.setLayout(new BorderLayout());
 		c.add(nord, BorderLayout.NORTH);
+		c.add(centro, BorderLayout.CENTER);
 		c.add(sud, BorderLayout.SOUTH);
 		sud.setLayout(new GridLayout(1,2,5,5));
 		sud.add(evadi);
@@ -44,12 +48,17 @@ public class RichiestePendenti extends JFrame {
 		esci.setActionCommand("chiudi");
 		JScrollPane scrollPane = new JScrollPane(TableRichiestePendenti(codOrdine));
 		nord.add(scrollPane);
+		JLabel SpesaTot = new JLabel("Totale: € "+Spesa_Totale);
+		centro.add(SpesaTot);
 		
 		//Colori e grafica
 		c.setBackground(BlueFacebook);
 		nord.setBorder(BorderFactory.createEmptyBorder(20,0,0,0));
 		nord.setOpaque(true);
+		centro.setOpaque(true);
+		SpesaTot.setForeground(Color.white);
 		nord.setBackground(BlueFacebook);
+		centro.setBackground(BlueFacebook);
 		sud.setOpaque(true);
 		sud.setBackground(BlueFacebook);
 		sud.setBorder(new LineBorder(Color.BLACK,1));
@@ -78,9 +87,13 @@ public class RichiestePendenti extends JFrame {
 					mtm.addRow(magazz_business.DettaglioRichiestePendenti(codOrdine).get(i));
 					//prende il numero degli ordinati e il prezzo e li moltiplica restituendo il prezzo giusto
 					int numeroOrdinati = Integer.parseInt(magazz_business.DettaglioRichiestePendenti(codOrdine).get(i)[3]);
-					float prezzo_singolo = Float.parseFloat((magazz_business.DettaglioRichiestePendenti(codOrdine).get(i)[4]));
-					float prezzoTotaleProdotto = numeroOrdinati*prezzo_singolo;
+					double prezzo_singolo =	Double.parseDouble((magazz_business.DettaglioRichiestePendenti(codOrdine).get(i)[4]));
+					double  prezzoTotaleProdotto = numeroOrdinati*prezzo_singolo;
+					//Si tronca alla seconda cifra decimale
+					prezzoTotaleProdotto = Math.floor(prezzoTotaleProdotto*100);
+					prezzoTotaleProdotto = prezzoTotaleProdotto/100;
 					mtm.setValueAt(prezzoTotaleProdotto, i, 4);
+					Spesa_Totale = Spesa_Totale + prezzoTotaleProdotto;
 					}
 				
 
