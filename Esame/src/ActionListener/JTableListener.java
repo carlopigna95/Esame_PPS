@@ -1,8 +1,8 @@
 
 	package ActionListener;
 
+import java.awt.Component;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
@@ -10,10 +10,11 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Vector;
 
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
 import Business.DipendenteBusiness;
@@ -51,9 +52,10 @@ public class JTableListener implements ActionListener {
 		this.dtm = dtm;
 	}
 	
-	public JTableListener(JTable table,GuiCarrello win){
+	public JTableListener(JTable table,DefaultTableModel dtm,GuiCarrello win){
 		this.table = table;
 		this.win = win;
+		this.dtm = dtm;
 		
 	}
 	
@@ -76,22 +78,36 @@ public class JTableListener implements ActionListener {
 		 
 	 Carrello.getInstance().rimuoviProdotto(table, dtm);
 	 
+	 	//per modificare la JLabel della Spesa Totale si individua il JLabel component e si opera
+		Container d = win.getContentPane();
+		JPanel centro = (JPanel) d.getComponent(1);
+		JLabel label = (JLabel) centro.getComponent(1);
+		label.setText("Totale: € "+Carrello.getInstance().getTotale_Spesa());
+	 
     }
 	 else if (arg0.getActionCommand().equals("modifica")){
 		 
 		Carrello.getInstance().modificaQuantita(table,dtm);
+	
+		//per modificare la JLabel della Spesa Totale si individua il JLabel component e si opera
+			Container d = win.getContentPane();
+			JPanel centro = (JPanel) d.getComponent(1);
+			JLabel label = (JLabel) centro.getComponent(1);
+			label.setText("Totale: € "+Carrello.getInstance().getTotale_Spesa());
+			
 		
-		    
-        
-	 }
+		}
+		
+	
 	 
 	 else  if (arg0.getActionCommand().equals("conferma")){
-		  Ordine.getInstance().confermaOrdine();
-		  Ordine.getInstance().inserisciOrdine();
-		  DipendenteBusiness.getInstance().aggiornaTotaleSpesa();
-		  ProgettoBusiness.getInstance().aggionaSpesaProgetto();
-		  
-		  //STAMPA DISTINTA
+		 boolean ris = Ordine.getInstance().confermaOrdine();
+	     if (ris == true){
+	      Ordine.getInstance().inserisciOrdine();
+	      DipendenteBusiness.getInstance().aggiornaTotaleSpesa();
+	      ProgettoBusiness.getInstance().aggionaSpesaProgetto();
+	      
+	    //STAMPA DISTINTA
 		  
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			Date date = new Date();
@@ -109,7 +125,15 @@ public class JTableListener implements ActionListener {
 				e.printStackTrace();
 			} 
 			
-		  Carrello.getInstance().svuotaCarrello_confermaOrdine(dtm);
+	      Carrello.getInstance().svuotaCarrello_confermaOrdine(dtm);
+	      
+	     
+	   }
+	     else JOptionPane.showMessageDialog(null, "Non ci sono prodotti nel carrello");
+		  
+		  
+			
+		  
 		  
 		 
 		  

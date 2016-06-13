@@ -47,13 +47,14 @@ public class Ordine {
 		return ProgettoDAO.getInstance().getNomeProgetto();
 	}
 	
-    public void confermaOrdine(){
+    public boolean confermaOrdine(){
     	if (Carrello.getInstance().sessionCar.isEmpty()){
     		JOptionPane.showMessageDialog(null, "Non ci sono prodotti nel carrello");
+    		return false;
     	}
     	
     	else{
-            Object [] spesa_progetto = new Object[2];
+            Object [] spesa_progetto = new Object[3];
      		Vector<String[]> progetti = OrdineBusiness.getInstance().getProgetto();
         	JComboBox<String> box = new JComboBox<String>();
         	for (int i=0;i<progetti.size();i++){
@@ -122,6 +123,8 @@ public class Ordine {
     			   ordine_magazzino.put("magazzino1",lista_ordine1);  
     			   ordine_magazzino.put("magazzino2",lista_ordine2);
     	    }
+    	    
+    	    return true;
     	}
     	
     }

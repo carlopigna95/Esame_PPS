@@ -12,12 +12,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Business.CarrelloBusiness;
+import view.GuiCarrello;
+
 public class Carrello {
 
 	private int Codice_Ordine;
 	private Prodotto Prodotti_Acquistati;
-	private float Totale_Spesa;
+	private double Totale_Spesa;
 	private int Codice_Progetto;
+	
 	
 	
 	private static Carrello instance;
@@ -38,10 +42,10 @@ public class Carrello {
 	public void setCodice_Ordine(int codice_Ordine) {
 		Codice_Ordine = codice_Ordine;
 	}
-	public float getTotale_Spesa() {
+	public double getTotale_Spesa() {
 		return Totale_Spesa;
 	}
-	public void setTotale_Spesa(float totale_Spesa) {
+	public void setTotale_Spesa(double totale_Spesa) {
 		Totale_Spesa = totale_Spesa;
 	}
 
@@ -183,13 +187,15 @@ public class Carrello {
 	         
 	       Set<Prodotto> keySet = sessionCar.keySet();
 		   Iterator<Prodotto> iterator = keySet.iterator();
-		   while(iterator.hasNext()){
+		
+		   /*   while(iterator.hasNext()){
+			   
 			   Prodotto key = iterator.next(); 
 			  
 			   if (p.getNome_Prodotto() == key.getNome_Prodotto()){
 				   sessionCar.remove(key);
 			   }
-		   }
+		   } */
 			 for(Prodotto key : sessionCar.keySet()){
 				 if (p.getNome_Prodotto().equals(key.getNome_Prodotto())){
 					   sessionCar.remove(key);
@@ -198,6 +204,18 @@ public class Carrello {
 			 }
 		   
 		   dtm.removeRow(row);
+		   
+		   
+		    //Viene salvata la spesaAttuale
+		    double SpesaAttuale = 0;
+		    for(int i=0;i<table.getRowCount();i++){
+		    	SpesaAttuale = SpesaAttuale + Double.parseDouble(table.getValueAt(i, 7).toString());
+		    }
+		    
+		    //Si tronca alla seconda cifra decimale
+		    SpesaAttuale = Math.floor(SpesaAttuale*100);
+		    SpesaAttuale = SpesaAttuale/100;
+		    Totale_Spesa = SpesaAttuale;
 	      
 	   }
 	   catch(ArrayIndexOutOfBoundsException e){
@@ -243,6 +261,21 @@ public class Carrello {
          			    
          			    table.setValueAt(totale_nuovo, row, 7);
          			    table.setValueAt(somma, row, 6);
+         			    
+         			    
+         			    //Viene salvata la spesaAttuale
+         			    double SpesaAttuale = 0;
+         			    for(int i=0;i<table.getRowCount();i++){
+         			    	SpesaAttuale = SpesaAttuale + Double.parseDouble(table.getValueAt(i, 7).toString());
+         			    }
+         			    
+         			    //Si tronca alla seconda cifra decimale
+         			    SpesaAttuale = Math.floor(SpesaAttuale*100);
+         			    SpesaAttuale = SpesaAttuale/100;
+         			    Totale_Spesa = SpesaAttuale;
+         			    
+         			    
+         			  
         //AGGIORNAMENTO HASHMAP
          			  Object[] cella =  new Object[table.getColumnCount()];
          			   for (int col=0;col<table.getColumnCount();col++){
@@ -323,6 +356,18 @@ public class Carrello {
 					    }
 					    table.setValueAt(somma, row, 6);
 					    table.setValueAt(totale_nuovo, row, 7);
+				   
+					    //Viene salvata la spesaAttuale
+					    double SpesaAttuale = 0;
+         			    for(int i=0;i<table.getRowCount();i++){
+         			    	SpesaAttuale = SpesaAttuale + Double.parseDouble(table.getValueAt(i, 7).toString());
+         			    }
+         			    
+         			 //Si tronca alla seconda cifra decimale
+         			    SpesaAttuale = Math.floor(SpesaAttuale*100);
+         			    SpesaAttuale = SpesaAttuale/100;
+         			    Totale_Spesa = SpesaAttuale;
+         			    
 					  //AGGIORNAMENTO HASHMAP
 	         			  Object[] cella =  new Object[table.getColumnCount()];
 	         			   for (int col=0;col<table.getColumnCount();col++){
@@ -375,6 +420,15 @@ public class Carrello {
 	  Ordine.getInstance().ordine_magazzino.clear();
 	  dtm.setRowCount(0);
   }
+  
+  public void calcoloSpesa(double SpesaAttuale){
+	  
+	  
+  }
+  
+
+	  
+	  
 }
 
 

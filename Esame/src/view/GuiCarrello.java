@@ -2,6 +2,7 @@
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,7 +27,6 @@ public class GuiCarrello extends JFrame {
 	private static final long serialVersionUID = 1L;
 	Color BlueFacebook = new Color(59,89,152);
 	Color MediumBlueFacebook = new Color(109, 132, 180);
-
 	
 	public GuiCarrello(){
 		super("Carrello");
@@ -74,14 +73,20 @@ public class GuiCarrello extends JFrame {
 		for (int i=0;i<lista.size();i++){
 			dtm.addRow(lista.get(i));
 			
-			float prezzoTotale = Float.parseFloat(lista.get(i)[7]);
+			//si tronca alla seconda cifra decimale
+			double prezzoTotale = Double.parseDouble((lista.get(i)[7]));
+			prezzoTotale = Math.floor(prezzoTotale*100);
+			prezzoTotale = prezzoTotale/100;
+			dtm.setValueAt(prezzoTotale, i, 7);
+			
 			
 			SpesaTotale = SpesaTotale + prezzoTotale; 
 			SpesaTotale = Math.floor(SpesaTotale*100);
-			SpesaTotale = SpesaTotale/100; 
+			SpesaTotale = SpesaTotale/100;  
 			
 		}
 		JLabel SpesaTot = new JLabel("Totale: € "+SpesaTotale);
+		
 		
 		JTableListener listStampa = new JTableListener(dtm,table,SpesaTotale);
 		
@@ -92,8 +97,8 @@ public class GuiCarrello extends JFrame {
 		conferma.setActionCommand("conferma");
 		catalogo.addActionListener(lis);
 		catalogo.setActionCommand("catalogo");
-		JTableListener lisRimuovi = new JTableListener(dtm,table);
-		JTableListener lisModifica = new JTableListener(table,this);
+		JTableListener lisRimuovi = new JTableListener(table,dtm,this);
+		JTableListener lisModifica = new JTableListener(table,dtm,this);
 		rimuovi.addActionListener(lisRimuovi);
 		rimuovi.setActionCommand("rimuovi");
 		modifica.addActionListener(lisModifica);
@@ -141,12 +146,14 @@ public class GuiCarrello extends JFrame {
 		  scrollPane.getViewport().setBackground(MediumBlueFacebook);
 		  scrollPane.setBorder(new LineBorder(Color.BLACK,1));
 		  SpesaTot.setForeground(Color.WHITE);
-
+		 
+			
 		    
 		    
 	  	setSize(900,550);
 	  	setDefaultCloseOperation(EXIT_ON_CLOSE);
 	  	setVisible(true);
 	}
+
 	
 }

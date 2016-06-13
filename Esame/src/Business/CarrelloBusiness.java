@@ -4,6 +4,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import model.Carrello;
+import view.GuiCarrello;
 
 public class CarrelloBusiness {
 
@@ -39,5 +40,7 @@ public class CarrelloBusiness {
 		c.svuotaCarrello_confermaOrdine(dtm);
 		
 	}
+	
+	
 	
 }
