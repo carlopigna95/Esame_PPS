@@ -52,7 +52,9 @@ public class Ordine {
     	
     		if(Carrello.getInstance().sessionCar.isEmpty() == true){
     			return false;
-    		}else{
+    		}
+  
+    	else{
             Object [] spesa_progetto = new Object[2];
      		Vector<String[]> progetti = OrdineBusiness.getInstance().getProgetto();
         	JComboBox<String> box = new JComboBox<String>();

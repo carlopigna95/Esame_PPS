@@ -63,31 +63,29 @@ public class GuiCarrello extends JFrame {
 		
 		//DATI JTABLE	
 		String columnNames1[] = new String[] { "Nome", "Categoria", "Descrizione","Disponibilita "
-					,"Prezzo","Produttore","Quantità selezionata","Prezzo per quantita"};
+					,"Prezzo","Produttore","Quantità selezionata","Totale"};
 		dtm.setColumnIdentifiers(columnNames1);
 	    
 		
 		Vector<String[]> lista = Carrello.getInstance().listaProdotti();
-		double prezzoReale;
 		double SpesaTotale = 0;
 		
+		//Aggiornamento della spesa totale
 		for (int i=0;i<lista.size();i++){
 			dtm.addRow(lista.get(i));
 			
-			//Aggiornamento del prezzo 
-		    
 			float prezzoTotale = Float.parseFloat(lista.get(i)[7]);
-			
-			//per troncare il double alla seconda cifra decimale
 			
 			SpesaTotale = SpesaTotale + prezzoTotale; 
 			SpesaTotale = Math.floor(SpesaTotale*100);
-			SpesaTotale = SpesaTotale/100;
+			SpesaTotale = SpesaTotale/100; 
 			
 		}
 		JLabel SpesaTot = new JLabel("Totale: € "+SpesaTotale);
 		
 		JTableListener listStampa = new JTableListener(dtm,table,SpesaTotale);
+		
+		
 
 		//LISTENER
 		conferma.addActionListener(listStampa);
@@ -95,11 +93,12 @@ public class GuiCarrello extends JFrame {
 		catalogo.addActionListener(lis);
 		catalogo.setActionCommand("catalogo");
 		JTableListener lisRimuovi = new JTableListener(dtm,table);
-		JTableListener lisModifica = new JTableListener(table);
+		JTableListener lisModifica = new JTableListener(table,this);
 		rimuovi.addActionListener(lisRimuovi);
 		rimuovi.setActionCommand("rimuovi");
 		modifica.addActionListener(lisModifica);
 		modifica.setActionCommand("modifica");
+		
 		
 		
        

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,15 +15,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.table.DefaultTableModel;
 
 import ActionListener.Ascoltatore;
 import ActionListener.AscoltatoreDipendente;
 import ActionListener.JTableListener;
 import dao.DipendenteDAO;
-import model.Sessione;
-import model.Sessione;
 import model.Sessione;
 import model.UtenteRegistrato;
 
@@ -49,6 +50,8 @@ public class GuiDipendente extends JFrame{
 		JPanel sud1 = new JPanel();
 		JPanel nord2 = new JPanel();
 		JPanel sud2 = new JPanel();
+	
+		UIManager.put("TabbedPane.contentBorderInsets", new Insets(0, 0, 0, 0));
 		JTabbedPane tab = new JTabbedPane();
 		JLabel accesso = new JLabel(nome+" "+cognome);
 	
@@ -102,7 +105,6 @@ public class GuiDipendente extends JFrame{
 	  	utente.add(accesso);
 	  	c.add(principale);
 	  	JScrollPane scrollPane1 = new JScrollPane(table1);
-		scrollPane1.getViewport().setBackground(MediumBlueFacebook);
 	  	primo.add(nord1,BorderLayout.NORTH);
 	  	nord1.add(scrollPane1);
 	  	primo.add(sud1, BorderLayout.SOUTH);
@@ -158,7 +160,6 @@ public class GuiDipendente extends JFrame{
 	  	//PANNELLI
 	  	
 	  	JScrollPane scrollPane2 = new JScrollPane(table2);
-		scrollPane2.getViewport().setBackground(MediumBlueFacebook);
 	  	secondo.setLayout(new BorderLayout());
 	  	secondo.add(nord2,BorderLayout.NORTH);
 	  	nord2.add(scrollPane2);
@@ -209,6 +210,19 @@ public class GuiDipendente extends JFrame{
 			scrollPane1.setBorder(new LineBorder(Color.BLACK,1));
 			scrollPane2.getViewport().setBackground(MediumBlueFacebook);
 			scrollPane2.setBorder(new LineBorder(Color.BLACK,1));
+			
+		
+			tab.setUI(new BasicTabbedPaneUI() {
+		    	   @Override
+		    	   protected void installDefaults() {
+		    	       super.installDefaults();
+		    	       highlight = Color.black;
+		    	       lightHighlight = Color.black;
+		    	       shadow = Color.black;
+		    	       darkShadow = Color.black;
+		    	       focus = BlueFacebook;
+		    	   }
+		    	}); 
 			
 	    setSize(900,450);
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);

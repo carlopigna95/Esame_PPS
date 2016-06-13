@@ -1,22 +1,12 @@
 package view;
-import model.Magazziniere;
-import model.Sessione;
-import model.UtenteRegistrato;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.ScrollPane;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.awt.Insets;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,23 +14,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
 import ActionListener.Ascoltatore;
 import ActionListener.AscoltatoreMagazziniere;
-import ActionListener.JTableListener;
 import ActionListener.JTableListenerMagazziniere;
 import ActionListener.MyTableListener;
 import Business.MagazziniereBusiness;
-import dao.MagazziniereDAO;
+import model.Sessione;
+import model.UtenteRegistrato;
 
 
 public class GuiMagazziniere extends JFrame {
@@ -66,6 +51,7 @@ public class GuiMagazziniere extends JFrame {
 		
 		  super("Magazziniere");
 		  Container c = getContentPane();
+		  UIManager.put("TabbedPane.contentBorderInsets", new Insets(0, 0, 0, 0));
 		  JTabbedPane tab = new JTabbedPane();
 		  JLabel accesso = new JLabel(nome+" "+cognome);
 		  
@@ -156,6 +142,18 @@ public class GuiMagazziniere extends JFrame {
 		
 	        
 	      principale.add(tab);
+	      
+	      tab.setUI(new BasicTabbedPaneUI() {
+	    	   @Override
+	    	   protected void installDefaults() {
+	    	       super.installDefaults();
+	    	       highlight = Color.black;
+	    	       lightHighlight = Color.black;
+	    	       shadow = Color.black;
+	    	       darkShadow = Color.black;
+	    	       focus = BlueFacebook;
+	    	   }
+	    	}); 
 	      tab.setPreferredSize(new Dimension(620,470));
 	      tab.add("Richieste pendenti", primo);
 	      tab.add("Rifornimento",secondo);

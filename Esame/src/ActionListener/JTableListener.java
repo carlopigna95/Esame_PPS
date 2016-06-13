@@ -1,6 +1,8 @@
 
 	package ActionListener;
 
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
@@ -12,25 +14,24 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
 import Business.DipendenteBusiness;
 import Business.ProgettoBusiness;
-import dao.DipendenteDAO;
-import dao.OrdineDAO;
-import dao.ProgettoDAO;
 import model.Carrello;
 import model.Ordine;
 import model.Sessione;
 import model.UtenteRegistrato;
-import view.GuiMagazziniere;
+import view.GuiCarrello;
 
 
 public class JTableListener implements ActionListener {
      JTable table = new JTable();
      DefaultTableModel dtm = new DefaultTableModel();
-     GuiMagazziniere magFinestra;
      double SpesaTotale = 0;
+     GuiCarrello win;
+     
     
      
     public JTableListener() {}
@@ -51,6 +52,12 @@ public class JTableListener implements ActionListener {
 		this.dtm = dtm;
 	}
 	
+	public JTableListener(JTable table,GuiCarrello win){
+		this.table = table;
+		this.win = win;
+		
+	}
+	
 	//Per la stampa
 	public JTableListener(DefaultTableModel dtm,JTable table, double SpesaTotale) {
 		super();
@@ -66,6 +73,7 @@ public class JTableListener implements ActionListener {
 	 Carrello.getInstance().aggiungiProdotto(table);
 	 
 	 
+	 
     }
 	 else  if (arg0.getActionCommand().equals("rimuovi")){
 		 
@@ -78,6 +86,9 @@ public class JTableListener implements ActionListener {
         
         
 		 
+		
+		    
+        
 	 }
 	 else  if (arg0.getActionCommand().equals("conferma")){
 		  

@@ -217,6 +217,9 @@ public class Carrello {
 		  int row = table.getSelectedRow(); //valore della riga
 		  int disp = Integer.parseInt( table.getValueAt(row, 3).toString() ); // valore della disponibilità
 		  int vecchia_scelta = Integer.parseInt(table.getValueAt(row, 6).toString()); //valore della scelta effetttuata nel catalogo
+		  double prezzo = Double.parseDouble(table.getValueAt(row,4).toString()); 
+		  double totale_nuovo = 0;
+		  double totale_vecchio;
 		
 		//COMBOBOX creato in base alla disponibilità e la scelta effettuata nel catalogo
 		  if (disp > vecchia_scelta){
@@ -232,6 +235,13 @@ public class Carrello {
 				        if (pannello == 0){
          			    int nuova_quantita = Integer.parseInt(box.getSelectedItem().toString());
          			    int somma = nuova_quantita + vecchia_scelta;
+         			    totale_vecchio = prezzo*somma;
+         			    totale_nuovo = totale_vecchio+totale_nuovo;
+         			    //tronco alla seconda cifra decimale
+         			    totale_nuovo = Math.floor(totale_nuovo*100);
+         			    totale_nuovo = totale_nuovo/100;
+         			    
+         			    table.setValueAt(totale_nuovo, row, 7);
          			    table.setValueAt(somma, row, 6);
         //AGGIORNAMENTO HASHMAP
          			  Object[] cella =  new Object[table.getColumnCount()];
@@ -279,6 +289,9 @@ public class Carrello {
 	  if (risposta == JOptionPane.NO_OPTION){
 		  int row = table.getSelectedRow();
 		  int vecchia_scelta = Integer.parseInt(table.getValueAt(row, 6).toString());
+		  double prezzo = Double.parseDouble(table.getValueAt(row,4).toString()); 
+		  double totale_nuovo = 0;
+		  double totale_vecchio;
 		  if( vecchia_scelta == 1){JOptionPane.showMessageDialog(null, "Se vuoi rimuovere il prodotto clicca su 'Rimuovi'");}
 		  else{
 			//COMBOBOX creato in base alla disponibilità e la scelta effettuata nel catalogo
@@ -299,10 +312,17 @@ public class Carrello {
 				        if (pannello == 0){
 				    int nuova_quantita = Integer.parseInt(box.getSelectedItem().toString());
 				    int somma = vecchia_scelta-nuova_quantita;
+				    totale_vecchio = prezzo*somma;
+     			    totale_nuovo = totale_vecchio-totale_nuovo;
+     			    //tronco alla seconda cifra decimale
+     			    totale_nuovo = Math.floor(totale_nuovo*100);
+     			    totale_nuovo = totale_nuovo/100;
+     			    
 				   try{if (somma == 0){
 					      rimuoviProdotto(table, dtm);
 					    }
 					    table.setValueAt(somma, row, 6);
+					    table.setValueAt(totale_nuovo, row, 7);
 					  //AGGIORNAMENTO HASHMAP
 	         			  Object[] cella =  new Object[table.getColumnCount()];
 	         			   for (int col=0;col<table.getColumnCount();col++){
