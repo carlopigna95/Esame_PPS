@@ -14,6 +14,7 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -73,6 +74,8 @@ public class JTableListener implements ActionListener {
 	 
 	 Carrello.getInstance().aggiungiProdotto(table);
 	 
+	 
+	 
     }
 	 else  if (arg0.getActionCommand().equals("rimuovi")){
 		 
@@ -94,12 +97,10 @@ public class JTableListener implements ActionListener {
 			JPanel centro = (JPanel) d.getComponent(1);
 			JLabel label = (JLabel) centro.getComponent(1);
 			label.setText("Totale: € "+Carrello.getInstance().getTotale_Spesa());
-			
 		
 		}
-		
-	
-	 
+		    
+       
 	 else  if (arg0.getActionCommand().equals("conferma")){
 		 boolean ris = Ordine.getInstance().confermaOrdine();
 	     if (ris == true){
@@ -130,18 +131,9 @@ public class JTableListener implements ActionListener {
 	     
 	   }
 	     else JOptionPane.showMessageDialog(null, "Non ci sono prodotti nel carrello");
-		  
-		  
-			
-		  
-		  
-		 
-		  
-		  
-		}
-
-
-	
+	 }
 	}
 }
+		  
+
 	

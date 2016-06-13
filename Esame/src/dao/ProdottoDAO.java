@@ -25,5 +25,13 @@ public class ProdottoDAO {
 		return codice;
 		
 	}
+	public int CodMagazzino(int codice_prodotto){
+		DbConnection con = new DbConnection();
+		Vector<String[]> vector = con.eseguiQuery("select idMagazzino from prodottoinmagazzino where CodiceProdottoInMagazzino="+codice_prodotto);
+		int codice_magazzino = Integer.parseInt(vector.get(0)[0]);
+		
+		
+		return codice_magazzino;
+	}
 
 }
