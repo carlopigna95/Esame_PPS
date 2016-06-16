@@ -64,11 +64,11 @@ public class Ordine {
                       box.addItem(progetti.get(i)[0]); 
               }
             box.setEditable(false);
-            String nome_progetto = (String) box.getSelectedItem();
         	String [] options ={"OK"};
         	int pannello = JOptionPane.showOptionDialog(null,box,"Selezionare il progetto",JOptionPane.YES_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
     	    if(pannello == 0){
-    	    	
+
+                   String nome_progetto = (String) box.getSelectedItem();
     			   Vector<Object[]> lista_ordine1 = new Vector<Object[]>();
     			   Vector<Object[]> lista_ordine2 = new Vector<Object[]>();
     			   Vector<Integer[]> lista_prodotti = new Vector<Integer[]>();
